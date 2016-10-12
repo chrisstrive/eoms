@@ -1,0 +1,166 @@
+function formatcpfl(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic11']?exists> 
+    	<#list Application['dic11'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatcpzt(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic14']?exists> 
+    	<#list Application['dic14'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatkhlx(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic30']?exists> 
+    	<#list Application['dic30'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatkhly(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic31']?exists> 
+    	<#list Application['dic31'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatkhzt(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic32']?exists> 
+    	<#list Application['dic32'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatbffs(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic40']?exists> 
+    	<#list Application['dic40'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatsplx(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic41']?exists> 
+    	<#list Application['dic41'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatspjg(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic42']?exists> 
+    	<#list Application['dic42'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatsj(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic43']?exists> 
+    	<#list Application['dic43'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatsjd(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic44']?exists> 
+    	<#list Application['dic44'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatzjjz(type){
+	if(type==null){
+		return '';
+	}
+	<#if Application['dic45']?exists> 
+    	<#list Application['dic45'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatyyzt(type){
+	if(type==null){
+		return '未确认';
+	}
+	<#if Application['dic47']?exists> 
+    	<#list Application['dic47'] as dic> 
+    if(type=='${dic.id?default('')}'){
+		return '${dic.dicTxt?default('')}';
+    }
+    	</#list>
+	</#if>
+}
+function formatkyyje(zje, zjyje) {
+	if(zje==null){
+		zje=0;
+	}
+	if(zjyje==null){
+		zjyje=0;
+	}
+	return zje-zjyje;
+}	
+function formatNullNumber(){
+	var value = arguments[0];
+	if (typeof(value) == 'undefined') {
+		return 0;
+	}
+	if (value == null || value == '') {
+		return 0;
+	}
+	if(value == 0.0){
+		return 0;
+	}
+	return value;
+}

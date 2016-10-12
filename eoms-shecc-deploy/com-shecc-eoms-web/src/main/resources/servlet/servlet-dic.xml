@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- 定义映射-->
+	<bean id="dicHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/dicDefault.htm">dicController</prop>
+				
+			</props>
+		</property>
+	</bean>
+
+	<bean id="dicController" class="com.shecc.eoms.web.controller.DicController">
+
+		<property name="methodNameResolver">
+			<ref bean="paramResolver" />
+		</property>
+
+
+		<property name="dicService">
+			<ref bean="ser-dicService" />
+		</property>
+
+
+		<property name="dicDefaultPage">
+			<value>/boss/dic/dicDefault</value>
+		</property>
+		
+		<property name="addPage">
+			<value>/boss/dic/dicAdd</value>
+		</property>
+
+		<property name="updatePage">
+			<value>/boss/dic/dicUpdate</value>
+		</property>
+		
+		<property name="reSetPage">
+			<value>/boss/dic/dicReset</value>
+		</property>
+		
+		<property name="changePage">
+			<value>/boss/dic/dicChange</value>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../static/login/styles.css" type="text/css" media="screen" rel="stylesheet" />
+    <link href="../static/login/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+    <script src="../static/login/jquery-1.6.2.min.js"></script>
+    <script src="../static/login/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="../static/login/jquery.keyboard.extension-typing.js"></script>
+    <link type="text/css" href="../static/login/keyboard.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/login/jquery.keyboard.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/menu.css">
+    
+</head>
+
+<script type="text/javascript">
+
+function selectChange(){
+	if(document.getElementById('s1').value == "o1"){
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="none";
+		
+		document.getElementById('d-o1').style.display="block";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="none";
+		
+	}else if(document.getElementById('s1').value == "o2"){
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="none";
+		
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="block";
+		document.getElementById('d-o3').style.display="none";
+		
+	}else if(document.getElementById('s1').value == "o3"){
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="none";
+		
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="block";
+		
+	}else if(document.getElementById('s1').value == "ox"){
+		
+		document.getElementById('d-o1').style.display="none";
+		document.getElementById('d-o2').style.display="none";
+		document.getElementById('d-o3').style.display="none";
+		
+	}
+	
+}
+
+function sub(){
+
+	document.getElementById('hiddenTx').style.display="none";
+	
+	var ts = true;
+	var cs = /^[a-zA-Z0-9]+$/;
+	var cs2 = /^[0-9]+$/;
+	
+	if(document.getElementById('username').value == "" || document.getElementById('username').value == "undefined"){
+		ts = false;
+	}else if(!cs.test(document.getElementById('username').value)){
+		ts = false;
+	}
+	
+	if(document.getElementById('userpwd').value == "" || document.getElementById('userpwd').value == "undefined"){
+		ts = false;
+	}else if(!cs.test(document.getElementById('userpwd').value)){
+		ts = false;
+	}
+	
+	if(document.getElementById('usertype').value == "ox" ){
+		ts = false;
+	}
+	if(document.getElementById('userst').value == "ox"){
+		ts = false;
+	}
+	if((document.getElementById('usertype').value == "2")||(document.getElementById('usertype').value == "3") ){
+		if(document.getElementById('refnum').value == "" || document.getElementById('refnum').value == "undefined" ){
+			ts = false;
+		}else if(!cs2.test(document.getElementById('refnum').value)){
+			ts = false;
+		}
+	}
+
+	if((document.getElementById('usertype').value == "1") ){
+		if((document.getElementById('usertype').value == "" || document.getElementById('usertype').value == "undefined") && (!cs2.test(document.getElementById('refnum').value))){
+			ts = false;
+		}
+	}
+	
+	if(ts){
+		document.getElementById('d-o1-form').submit();
+	}else{
+		document.getElementById('hiddenTx').style.display="block";
+	}
+}
+
+
+
+function sub2(){
+	
+	document.getElementById('hiddenTx2').style.display="none";
+	
+	var ts2 = true;
+	var cs22 = /^[0-9]+$/;
+
+	if(document.getElementById('useridset').value == "" || document.getElementById('useridset').value == "undefined"){
+		ts2 = false;
+	}else if(!cs22.test(document.getElementById('useridset').value)){
+		ts2 = false;
+	}
+
+	if(ts2){
+		document.getElementById('d-o2-form').submit();
+	}else{
+		document.getElementById('hiddenTx2').style.display="block";
+	}
+
+	
+}
+
+
+function sub3(){
+	
+	document.getElementById('hiddenTx3').style.display="none";
+	
+	var ts3 = true;
+	var cs23 = /^[0-9]+$/;
+
+	if(document.getElementById('useridset2').value == "" || document.getElementById('useridset2').value == "undefined"){
+		ts3 = false;
+	}else if(!cs23.test(document.getElementById('useridset2').value)){
+		ts3 = false;
+	}
+
+	if(document.getElementById('userpwdset').value == "" || document.getElementById('userpwdset').value == "undefined"){
+		ts3 = false;
+	}else if(!cs23.test(document.getElementById('userpwdset').value)){
+		ts3 = false;
+	}
+
+	if(ts3){
+		document.getElementById('d-o3-form').submit();
+	}else{
+		document.getElementById('hiddenTx3').style.display="block";
+	}
+	
+}
+
+</script>
+
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+
+
+  <body>
+	
+
+	
+	<table width="98%" border="0" cellpadding="0" cellspacing="1" bgcolor="#D1DDAA" align="center">
+	<tr>
+ 	<td height="26" background="skin/images/newlinebg3.gif">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  			<tr bgcolor="#EEF4EA"> 
+  				<td align="center">
+  					<h4 align="center" class="coolbg np">用户管理</h4>
+ 				</td>
+ 			</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+	
+	
+	
+	<br>
+	<br>
+	<div id="d1" align="center">
+		用户管理操作选择：
+		<select name="s1" id="s1" onchange="selectChange();">
+  			<option selected="selected" value="ox">请选择管理类型</option>
+  			<option value="o1">创建用户</option>
+  			<option value="o2">禁用用户</option>
+  			<option value="o3">修改密码</option>
+		</select>
+	</div>
+	<br>
+	
+
+	
+	
+	<div id="d-o1" align="center" style="display:none">
+	
+	
+		<form action="<@sp.contextPath/>/createuser.htm?method=createUser" method="post" id="d-o1-form" name="d-o1-form">
+		
+			
+			
+			
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+				
+				<div align="center" style="display: none" id="hiddenTx" name="hiddenTx">
+			 		<span class="STYLE1">请输入有效信息！</span>
+			 	</div>
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td  align="left" colspan="2"  class='title'><span>创建用户</span></td>
+  				</tr>
+  				
+  				<tr  bgcolor="#FFFFFF">
+				   <td   align="left" ><span class="STYLE1">*</span>用户名： </td> <td   align="left" ><input type="text" id="username" name="username" maxlength="16"> 数字、大小写字母</td>
+				</tr>
+				
+				<tr   bgcolor="#FFFFFF">
+				   <td   align="left" ><span class="STYLE1">*</span>用户类型： </td> 
+				   <td   align="left" >
+				   <select name="usertype" id="usertype">
+  				  		<option selected="selected" value="ox">请选择类型</option>
+  						<option value="1">管理员</option>
+  						<option value="2">合作机构</option>
+  						<option value="3">商户</option>
+				   </select>
+				   </td> 
+  				 </tr>
+  				 <tr  bgcolor="#FFFFFF">
+				   <td   align="left" ><span class="STYLE1">*</span>用户密码： </td> <td   align="left" ><input type="password" id="userpwd" name="userpwd" maxlength="16"> 数字、大小写字母</td>
+				 </tr>
+				
+				 <tr  bgcolor="#FFFFFF">
+				   <td   align="left" >所属机构： </td> 
+				   <td   align="left" ><input type="text" id="refnum" name="refnum" maxlength="20"> 
+				    <a href="<@sp.contextPath/>/htm/boss/user/userSearch.html" target="_BLANK">合作机构|商户</a>
+				   <span class="STYLE1">（用户类型非“管理员”时必选，仅为数字）</span> </td>
+  				 </tr>
+ 				
+ 				 <tr  bgcolor="#FFFFFF">
+				   <td   align="left" ><span class="STYLE1">*</span>状态：</td> 
+				   <td   align="left" >
+				   <select name="userst" id="userst">
+  				  		<option selected="selected" value="ox">请选择状态</option>
+  						<option value="1">有效</option>
+  						<option value="2">冻结</option>
+				   </select>				   
+				  </td> 
+  				 </tr>
+  				 <tr bgcolor="#EEF4EA">
+    				<td colspan="2"  class='title'><button name="oc" id="oc" type="button" onclick="sub();" >确认&创建</button></td>
+  				</tr>
+			</table>	
+	
+		</form>
+	
+	
+	</div>
+	
+	<div id="d-o2" align="center" style="display:none">
+	
+	
+	
+	<form action="<@sp.contextPath/>/createuser.htm?method=forbiddenUser" method="post" id="d-o2-form" name="d-o2-form">
+	
+		
+			
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+				
+				<div align="center" style="display: none" id="hiddenTx2" name="hiddenTx2">
+			 		<span class="STYLE1">请输入有效信息！</span>
+			 	</div>
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="2"   align="left"  class='title'><span>禁用用户</span></td>
+  				</tr>
+  				
+				 <tr  bgcolor="#FFFFFF">
+				   <td  align="left" >用户ID： </td> 
+				   <td  align="left" ><input type="text" id="useridset" name="useridset" maxlength="20"> 
+				   
+				   <a href="<@sp.contextPath/>/createuser.htm?method=preQueryUser" target="_BLANK">用户检索</a>
+				   
+				   <span class="STYLE1">（仅为数字）</span> </td>
+  				 </tr>
+ 				
+ 				 <tr bgcolor="#EEF4EA">
+    				<td colspan="2"  class='title'><button name="oc2" id="oc2" type="button" onclick="sub2();" >确认&禁用</button></td>
+  				</tr>
+			</table>	
+	
+		</form>	
+	
+	
+	
+	
+	</div>
+	
+	<div id="d-o3" align="center" style="display:none">
+
+
+	
+	<form action="<@sp.contextPath/>/createuser.htm?method=updateUser" method="post" id="d-o3-form" name="d-o3-form">
+	
+		
+			
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+				
+				<div align="center" style="display: none" id="hiddenTx3" name="hiddenTx3">
+			 		<span class="STYLE1">请输入有效信息！</span>
+			 	</div>
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="2"   align="left"  class='title'><span>修改密码</span></td>
+  				</tr>
+  				
+				 <tr  bgcolor="#FFFFFF">
+				   <td  align="left" >用户ID： </td> 
+				   <td  align="left" ><input type="text" id="useridset2" name="useridset2" maxlength="20"> 
+				   
+				   <a href="<@sp.contextPath/>/createuser.htm?method=preQueryUser" target="_BLANK">用户检索</a>
+				   
+				   <span class="STYLE1">（仅为数字）</span> </td>
+  				 </tr>
+ 
+ 				 <tr  bgcolor="#FFFFFF">
+				   <td  align="left" >新密码： </td> 
+				   <td  align="left" ><input type="text" id="userpwdset" name="userpwdset" maxlength="16"> 
+				   <span class="STYLE1">（仅为数字）</span> </td>
+  				 </tr>
+ 
+ 				
+ 				 <tr bgcolor="#EEF4EA">
+    				<td colspan="2"  class='title'><button name="oc3" id="oc3" type="button" onclick="sub3();" >确认&修改</button></td>
+  				</tr>
+			</table>	
+	
+		</form>	
+
+
+
+
+	</div>
+		
+		
+		
+		
+		
+  </body>
+ </html> 

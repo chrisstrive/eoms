@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- 定义映射-->
+	<bean id="UserHandlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/userdefault.htm">userController</prop>
+				
+			</props>
+		</property>
+	</bean>
+
+	<bean id="userController" class="com.shecc.eoms.web.controller.UserConntroller">
+
+		<property name="methodNameResolver">
+			<ref bean="paramResolver" />
+		</property>
+		
+		<property name="userService">
+			<ref bean="ser-UserService" />
+		</property>
+		<property name="userDefaultPage">
+			<value>/boss/user/userDefault</value>
+		</property>
+		
+		<property name="addPage">
+			<value>/boss/user/userAdd</value>
+		</property>
+
+		<property name="updatePage">
+			<value>/boss/user/userUpdate</value>
+		</property>
+		<property name="showPage">
+			<value>/boss/user/userShow</value>
+		</property>
+				
+		<property name="reSetPage">
+			<value>/boss/user/userPwdReset</value>
+		</property>
+		
+		<property name="changePage">
+			<value>/boss/user/userPwdChange</value>
+		</property>
+		
+		<property name="userSelectPage">
+			<value>/boss/user/userSelect</value>
+		</property>
+	</bean>
+
+</beans>

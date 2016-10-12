@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="ser-UserService" class="com.shecc.eoms.web.service.impl.UserServiceImpl">
+		<property name="userDao" ref="dao-UserDAO"></property>
+		<property name="menuService" ref="ser-MenuService"></property>
+	</bean>
+	
+	<bean id="ser-MenuService" class="com.shecc.eoms.web.service.impl.MenuServiceImpl">
+		<property name="menuDao" ref="dao-MenuDAO"></property>
+	</bean>
+	
+	<bean id="ser-RoleService" class="com.shecc.eoms.web.service.impl.RoleServiceImpl">
+		<property name="roleDao" ref="dao-RoleDAO"></property>
+	</bean>
+	
+	<bean id="ser-AuthService" class="com.shecc.eoms.web.service.impl.AuthServiceImpl">
+		<property name="menuDao" ref="dao-MenuDAO"></property>
+		<property name="roleMenuDao" ref="dao-RoleMenuDAO"></property>
+		<property name="userRoleDao" ref="dao-UserRoleDAO"></property>
+		<property name="roleDao" ref="dao-RoleDAO"></property>
+	</bean>
+	
+</beans>
+

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../static/login/styles.css" type="text/css" media="screen" rel="stylesheet" />
+    <link href="../static/login/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+    <script src="../static/login/jquery-1.6.2.min.js"></script>
+    <script src="../static/login/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="../static/login/jquery.keyboard.extension-typing.js"></script>
+    <link type="text/css" href="../static/login/keyboard.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/login/jquery.keyboard.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/menu.css">
+    
+</head>
+
+<script type="text/javascript">
+
+function sub(){
+
+	document.getElementById('hiddenTx2').style.display="none";
+	
+	var ts = true;
+	var cs = /^[0-9]+$/;
+	
+	if(document.getElementById('authin').value == "" || document.getElementById('authin').value == "undefined"){
+		ts = false;
+	}else if(!cs.test(document.getElementById('authin').value)){
+		ts = false;
+	}
+
+	if(ts){
+		document.getElementById('authform1').submit();
+	}else{
+		document.getElementById('hiddenTx2').style.display="block";
+	}
+	
+}
+
+function subadd() 
+{ 
+	document.getElementById('hiddenTx3').style.display="none";
+	
+	var ts2 = true;
+	var cs2 = /^[0-9]+$/;
+	var cbsval = document.all['cbs'];
+	
+	if( document.getElementById('sss1').value == "ox" ){
+		ts2 = false;
+	}
+
+	if(cbsval.length && ts2 == true){ 
+		for(var i=0;i<cbsval.length;i++){
+			if(cbsval[i].checked){
+				ts2 = true;
+				break;
+			}else{
+				ts2 = false;
+			}
+		}
+	}else{
+		ts2 = false; 
+	}
+	
+	if(ts2){
+		document.getElementById('form279').submit();
+	}else{
+		document.getElementById('hiddenTx3').style.display="block";
+	}
+}
+
+function checkAll() 
+{ 
+	var code_Values = document.all['cbs']; 
+	if(code_Values.length){ 
+		for(var i=0;i<code_Values.length;i++) 
+		{ 
+			code_Values[i].checked = true; 
+		} 
+	}else{ 
+		code_Values.checked = true; 
+	} 
+} 
+function uncheckAll() 
+{ 
+	var code_Values = document.all['cbs']; 
+	if(code_Values.length){ 
+		for(var i=0;i<code_Values.length;i++) 
+		{ 
+			code_Values[i].checked = false; 
+		} 
+	}else{ 
+		code_Values.checked = false; 
+	} 
+}
+
+</script>
+
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+
+
+  <body>
+	
+
+	
+	<table width="98%" border="0" cellpadding="0" cellspacing="1" bgcolor="#D1DDAA" align="center">
+	<tr>
+ 	<td height="26" background="skin/images/newlinebg3.gif">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  			<tr bgcolor="#EEF4EA"> 
+  				<td align="center">
+  					<h4 align="center" class="coolbg np">角色菜单权限管理</h4>
+ 				</td>
+ 			</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+	
+	<br>
+	<br>
+	
+<#if retList?exists>	
+	<form action="<@sp.contextPath/>/authdefault.htm?method=queryMenu" method="post" id="authform1" name="authform1">
+		<div id="d1" align="center">
+		角色ID： <input type="text" maxlength="20" id="authin" name="authin"/> <input type="button" id="authbtn" name="authbtn" onclick="sub();" value="为此角色配置菜单"/>
+		</div>
+	<br>
+		<div align="center" style="display: none" id="hiddenTx2" name="hiddenTx2">
+			<span class="STYLE1">请输入有效信息！</span>
+		</div>
+	</form>	
+		
+	<br>
+	
+
+	<div id="d-o1" align="center" style="display:block">
+	
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="2"  align="left"  class='title'><span>角色列表</span><span class="STYLE1">（请选择需要配置菜单的角色）</span></td>
+  				</tr>
+  				<tr bgcolor="#FFFFFF">
+    				<td>角色ID</td> 
+				    <td>用户名</td>
+  				</tr>
+  				<#list retList as ls2>
+							
+				<tr bgcolor=#FFFFFF>
+				   <td  align="left"  width="30%" > <span class="STYLE1">${ls2.roleCode}</span></td> 
+				   <td align="left"  width="30%" > ${ls2.roleName} </td>
+				</tr>
+									
+				</#list>
+  				
+			</table>
+	</div>
+</#if>
+	
+<#if retList2?exists>
+<form action="<@sp.contextPath/>/authdefault.htm?method=roleMenuOp" method="post" id="form279" name="authform1">
+	<br>
+	<br>
+	<div id="d1" align="center">
+		向角色：${retRoleId} 
+		<select name="sss1" id="sss1">
+  			<option selected="selected" value="ox">请选择操作类型</option>
+  			<option value="o1">增加菜单</option>
+  			<option value="o2">删除菜单</option>
+		</select>
+		<button name="oc7" id="oc7" type="button" onclick="subadd();">确认</button>
+		<input type="hidden" id="hiddenVr" name="hiddenVr" value="${retRoleId}"/>
+	</div>
+	<br>
+		<div align="center" style="display: none" id="hiddenTx3" name="hiddenTx2">
+			<span class="STYLE1">请选择操作类型及需处理的菜单！</span>
+		</div>
+	<br>
+	<div id="d-o2" align="center" style="display:block">
+	
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="4"  align="left"  class='title'><span>菜单列表</span></td>
+  				</tr>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="4"  class='title'><input type="button" id="authbtn2" name="authbtn2" onclick="checkAll();" value="全选"/>
+    				<input type="button" id="authbtn3" name="authbtn3" onclick="uncheckAll();" value="反选"/></td>
+  				</tr>
+  				<tr bgcolor="#FFFFFF">
+  					<td>选择</td>
+    				<td>菜单ID</td> 
+				    <td>菜单名</td>
+				    <td>父级菜单ID</td>
+  				</tr>
+  				<#list retList2 as ls3>
+							
+				<tr bgcolor=#FFFFFF>
+					 <td  align="left"  width="4%" ><input type="checkbox" id="cbs" name="cbs" value="${ls3.menuCode}"/></td>
+				   <td  align="left"  width="20%" > <span class="STYLE1">${ls3.menuCode}</span></td> 
+				   <td align="left"  width="20%" > ${ls3.menuName} </td>
+				   <td  align="left"  width="20%" > <span class="STYLE1">${ls3.parent?default('')}</span></td> 
+				</tr>
+									
+				</#list>
+  				
+			</table>
+	</div>
+</from>	
+</#if>
+	
+		
+  </body>
+ </html> 

@@ -1,0 +1,99 @@
+<script type="text/javascript" src="<@sp.contextPath/>/static/layer/layer.min.js"></script>
+<script type="text/javascript">
+	var page;
+
+	function addSelectLcs(lcsmc, callbackId, callbackName) {
+		page = $.layer({
+	    	type: 1,
+	        title: false, //不显示默认标题栏
+	        shade: [1], //显示遮罩
+	        area: ['auto', 'auto'],
+	        page: {html: '<div style="width:500px;height:420px;"><div style="display: none;"><span id="param_lcs_name"></span><span id="param_parent_dom_id"></span><span id="param_parent_dom_name"></span></div><div class="mod_box"><div class="head">理财师查询</div><div class="body"><ul class="mod_list mod_list_multi"><li><label class="mod_side">理财师姓名：</label><input type="text"class="inp_normal w200"name="lcsmc"id="lcsmc"/></li><li class="mod_list_btn"><input class="btn btnA"type="button"value="查 询"onclick="initDataLcs(0)"/></li></ul></div><table class="table txtC"id="dataTableLcs"><thead><tr><th>理财师姓名</th><th>理财师代码</th><th>操作</th></tr></thead></table><table width="100%"><tr><td width="50%"align="left">每页显示<select id="items_per_page_lcs"style="cursor:pointer"><option value="10">10</option><option value="20">20</option><option value="50">50</option></select>条,共<label id="totalRecordLcs">0</label>条记录</td><td align="right"><div id="PaginationLcs"class="flickr"style="text-align:right"></div></td></tr></table><div id="divload"style="top:50%; right:50%;position:absolute; padding:0px; margin:0px; z-index:999"></div></div></div>'}
+		 });
+
+		$("#lcsmc").val(lcsmc); 
+		$("#param_parent_dom_id").html(callbackId);
+		$("#param_parent_dom_name").html(callbackName);
+
+		initDataLcs(0);
+	}
+ 	// 异步查询方法
+	function pageselectCallbackLcs(page_id,jq) {
+	    initDataLcs(page_id);
+	}
+	/**
+	 * 改变每页显示条数
+	 */
+    $("#items_per_page_lcs").bind("change keyup", function() {  
+    	initDataLcs(0);
+    }); 
+
+	
+	function selectLcs(id, name){
+		$("#" + $("#param_parent_dom_id").html()).val(id);
+		$("#" + $("#param_parent_dom_name").html()).val(name);
+		layer.close(page);
+	}
+
+	function initDataLcs(pageindx){
+	  var tbody = "";
+	  var pageCount = "";
+	  // 获取每页显示记录数
+	  var pageSize = $("#items_per_page_lcs").val();
+	  
+	  $.ajax({
+	       type: "POST",//用POST方式传输
+	       dataType:"json",//数据格式:JSON
+	       url:'<@sp.contextPath/>/employeedefault.htm?method=queryForPage',//目标地址
+	       async:false,//作用是防止在ajax成功调用之前就调用$("#PaginationLcs").Pagination,这个时候数据个数还没有初始化
+	       data:"targetPage=" + (pageindx+1) 
+	       		+ "&pageSize=" + pageSize
+	       		+"&lcsmc="+ $("#lcsmc").prop("value"),
+	       beforeSend:function(){
+		    	// 表单校验	
+		     	
+	       },//发送数据之前
+	       complete:function(){$("#divload").hide();$("#PaginationLcs").show();},//接收数据完毕
+	       success:function(json) {
+                $("#dataTableLcs tr:gt(0)").remove();
+                var pageData = json.pageData;
+                pageCount = json.pageCount;
+                $("#totalRecordLcs").html(pageCount);
+                if(pageData==""){
+                   $("#divload").hide();
+                  // dis();
+                   return false;
+                }
+                $.each(pageData, function(i, data) {
+                    var trs = "";
+                    trs += "<tr>" + 
+                    		"<td align='center'>" + 
+                    		(data.lcsdm == null ? "" : data.lcsdm) +
+                    		"</td>" +
+                    		"<td align='center'>" + 
+                    		(data.lcsmc == null ? "" : data.lcsmc) + 
+                    		"</td>" +
+                    		"<td align='center'>" +
+                    		"<a href=\"javascript:selectLcs('" + data.id + "','" + data.lcsmc + "')\">选择</a>&nbsp;" + 
+                    		"</td>" +
+                    		"</tr>";
+                 tbody+=trs; 
+                });
+
+                  $("#dataTableLcs").append(tbody);
+                 //行交替颜色
+                  $("#dataTableLcs tr:gt(0):odd").attr("class", "");
+                  $("#dataTableLcs tr:gt(0):even").attr("class", "");
+                }//end of success
+	        });
+			$("#PaginationLcs").pagination(pageCount, {
+			       callback: pageselectCallbackLcs,
+			       prev_text: '<<上一页',
+			       next_text: '下一页 >>',
+			       items_per_page:pageSize,
+			       num_display_entries:6,
+			       current_page:pageindx,
+			       num_edge_entries:2
+			});
+		}
+</script>

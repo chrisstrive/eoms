@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>EOMS-管理平台</title>
+<link  href="<@sp.contextPath/>/static/index/index.css" rel="stylesheet" type="text/css" />
+<script src="<@sp.contextPath/>/static/index/jquery-1.4.2.min.js" language="javascript"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/jquery/themes/default/easyui.css" />
+	<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/easyloader.js"></script>
+
+
+<script>var index = 0; function getIndex(){index = index +1; return index;}</script>
+</head>
+<body>
+<table align="center" width="95%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+  <tr>
+    <td height="71"><div><img src="<@sp.contextPath/>/static/index/images/wi_6.png" width="100%" border="0" height="71"/></div></td>
+  </tr>
+  <tr>
+    <td height="4" style="background-color:#413A61"></td>
+  </tr>
+  <tr>
+    <td align="right" height="26" style="background-color:#745863"><span class="input_who">尊敬的 <a href='#' onclick=showUserInfo('${userDto.id}')>${userDto.realName}</a> 用户 欢迎您！&nbsp;&nbsp;<a href="#" onclick="changePwd();">[修改密码]</a>&nbsp;&nbsp;<a href="<@sp.contextPath/>/login.htm?method=logout">[退出登录]</a></span></td>
+  </tr>
+  <tr>
+    <td class="ti_4"></td>
+  </tr>
+  <tr class="ti_5">
+    <td>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" class="ti_5_1">
+			<tr>
+			  <td style="width:200px;" valign="top">
+			  	<div style="width:220px; overflow:auto;" id="menuDiv">
+			  	<#if menuList?exists>
+			  	<#list menuList as menu >
+			  	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td valign="middle"><div class="menubar"><p><script>document.write(getIndex());</script></p><div style="margin-left:50px" onclick="javascript:showSubMenu(${menu.id});"><b>${menu.menuName?default('')}</b></div></div></td>
+					</tr>
+					<#if menu.subMenuList?exists>					
+					<tr id="subMenu${menu.id}" style="display:none" class="subMenu">
+						<td>
+							<#list menu.subMenuList as subMenu>
+							<table width="100%" border="0" cellpadding="0" cellspacing="0">
+								<#if "${subMenu.isParent}"=="1" >
+								<tr>
+									<td><div class="submenubar" onclick="javascript:showThrdMenu(${subMenu.id});"><h5><span id="colsflag_thrdMenu${subMenu.id}">+</span>&nbsp;${subMenu.menuName?default('')}</h5></div></td>
+								</tr>
+								</#if>
+								<#if "${subMenu.isParent}"=="0" >
+								<tr>
+									<td><div class="thrdmenubar"><a href="#" onclick="javascript:clkMenu('<#if subMenu.url??><@sp.contextPath/>${subMenu.url}</#if>','<#if subMenu.menuCode??>${subMenu.menuCode}</#if>');">${subMenu.menuName?default('')}</a></div></td>
+								</tr>
+								</#if>
+								<#if subMenu.subMenuList?exists>
+								<tr id="thrdMenu${subMenu.id}" style="display:none" class="thrdMenu">
+									<td>
+										<table border="0" cellpadding="0" cellspacing="0">
+											<#list subMenu.subMenuList as thrdMenu>
+											<tr>
+												<td><div class="thrdmenubar"><a href="#" onclick="javascript:clkMenuAll('<#if thrdMenu.url??><@sp.contextPath/>${thrdMenu.url}</#if>','<#if thrdMenu.menuCode??>${thrdMenu.menuCode}</#if>');">${thrdMenu.menuName?default('')}</a></div></td>
+											</tr>
+											</#list>
+										</table>
+									</td>
+								</tr>
+								</#if>
+							</table>
+							</#list>
+						</td>
+					</tr>
+					</#if>
+				</table>
+				</#list>
+				</#if>	
+				</div>
+			  </td>
+			  <td width="2" valign="top"></td>
+			  <td valign="top">
+			  	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr height="23">
+						<td style="border-bottom: #413a61 2px solid;">
+							<div id="topC1" class="topC1">系统功能项</div>
+						</td>
+					</tr>
+					<tr  id="dash1">
+						<td>
+							<iframe id="frame1" scrolling="auto" frameborder="0"  src="" style="width:100%;"></iframe>
+						</td>
+					</tr>
+				</table>
+			</tr>
+      	</table>
+	</td>
+  </tr>
+</table>
+</body>
+<script language="javascript">
+
+	
+	function clkMenu(src){
+		if(src){
+			$("#frame1").attr("src",src);
+		}	
+	}
+	
+	function showSubMenu(subMenuId){
+		$(".subMenu").each(function(){
+			var subMenuIdT = $(this).attr("id");
+			if(("subMenu" + subMenuId) != subMenuIdT){
+				$(this).hide();
+			}
+		});
+		
+		var isHidden = $("#subMenu"+subMenuId).is(":hidden");
+		if(isHidden){
+			$("#subMenu"+subMenuId).show();
+		}else{
+			$("#subMenu"+subMenuId).hide();
+		}
+	}
+	
+	function showThrdMenu(thrdMenuId){
+		$(".thrdMenu").each(function(){
+			var thrdMenuIdT = $(this).attr("id");
+			if(("thrdMenu" + thrdMenuId) != thrdMenuIdT){
+				$(this).hide();
+				$("#colsflag_"+thrdMenuIdT).html("+");
+			}
+		});
+		var isHidden = $("#thrdMenu"+thrdMenuId).is(":hidden");
+		if(isHidden){
+			$("#thrdMenu"+thrdMenuId).show();
+			$("#colsflag_thrdMenu"+thrdMenuId).html("-");
+		}else{
+			$("#thrdMenu"+thrdMenuId).hide();
+			$("#colsflag_thrdMenu"+thrdMenuId).html("+");
+		}
+	}
+	
+	function showUserInfo(id){
+    	var url = "<@sp.contextPath/>/userdefault.htm?method=showDispth&id=" + id;
+    	clkMenu(url);
+    }
+	
+	/**
+	*	修改密码
+	*/
+	function changePwd(){
+		var url = "<@sp.contextPath/>/userdefault.htm?method=changePwdDispth";
+		clkMenu(url);
+	}
+	
+	$(document).ready(function(){
+		var wheight = $(window).height();
+		$("#menuDiv").css("height", wheight);
+		
+		$("#frame1").height(wheight * 0.95);
+
+	});
+	
+</script>
+</html>

@@ -1,0 +1,18 @@
+article, aside, figure, footer, header, hgroup,  menu, nav, section { display: block; }
+.west { width: 200px;overflow:auto;}
+.north { height: 100px; }
+.tree{
+	margin:0;
+	padding:5px;
+}
+.tree ul{
+	display:inline;
+}
+
+.tree li{
+	padding:0; margin:0;
+	list-style:none;
+	text-align:left;
+	white-space:nowrap;
+	display:inline;
+}

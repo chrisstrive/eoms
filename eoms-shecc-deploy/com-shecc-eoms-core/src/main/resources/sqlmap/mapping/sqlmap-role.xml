@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ns-role">
+
+	<typeAlias alias="t-role" type="com.shecc.eoms.core.model.Role" />
+	
+	<select id="checkRoleByRoleName" resultClass="t-role" parameterClass="java.util.Map">
+    	select 
+    	id,		
+    	rolecode,
+		rolename,
+		status,
+		remark
+      	from AUTH_ROLE t
+     	where t.id = #roleId#
+	</select>
+	
+	<select id="getMaxId" resultClass="java.lang.Integer">
+		select max(id)
+		from AUTH_role t
+     	where 1 = 1
+	</select>
+	
+	<insert id="insertSelective" parameterClass="t-role">
+		insert into
+		AUTH_role
+		(
+		rolecode,
+		rolename,
+		status,
+		remark
+		)
+		values
+		(
+		#roleCode#,
+		#roleName#,
+		#status#,
+		#remark#
+		)
+    </insert>
+    
+    
+    <update id="forbiddenRoleById"  parameterClass="java.util.Map">
+    	update AUTH_role t set t.status=0 where t.id = #id#
+	</update>
+    
+    
+    <select id="queryRole" resultClass="t-role">
+    	select 
+    	t.id,
+    	t.rolecode,
+		t.rolename,
+		t.status,
+		t.remark
+      	from AUTH_role t
+     	where t.status = 1
+	</select>	
+	
+	<select id="queryRoleForPage" resultClass="t-role">
+    	select 
+    	t.id,
+    	t.rolecode,
+		t.rolename,
+		t.status,
+		t.remark
+      	from AUTH_role t
+     	where 1 = 1
+			<isNotNull prepend=" and " property="roleCode">t.rolecode like '%$roleCode$%'</isNotNull>
+			<isNotNull prepend=" and " property="roleName">t.rolename like '%$roleName$%'</isNotNull>
+			<isNotNull prepend=" and " property="status">t.status = #status#</isNotNull>
+	</select>	
+	
+	<select id="count_queryRoleForPage" resultClass="java.lang.Integer">
+		select count(1)
+		from AUTH_role t
+     	where 1 = 1
+			<isNotNull prepend=" and " property="roleCode">t.rolecode like '%$roleCode$%'</isNotNull>
+			<isNotNull prepend=" and " property="roleName">t.rolename like '%$roleName$%'</isNotNull>
+			<isNotNull prepend=" and " property="status">t.status = #status#</isNotNull>
+	</select>
+	
+	<select id="findRoleByRoleId" resultClass="t-role">
+    	select 
+    	t.id,
+    	t.rolecode,
+		t.rolename,
+		t.status,
+		t.remark
+      	from AUTH_role t
+     	where 1 = 1
+			  and t.id = #id#
+	</select>	
+	
+	<update id="updateByPrimaryKeySelective" parameterClass="t-role">
+		update
+			AUTH_role t
+		set 
+			t.rolename = #roleName#,
+			t.status = #status#
+		where
+			t.id = #id#
+	</update>
+	
+	<update id="reUseRoleByRoleId"  parameterClass="java.util.Map">
+    	update AUTH_role t set t.status=1 where t.id = #id#
+	</update>
+
+
+	<select id="queryUserRole" resultClass="t-role"  parameterClass="java.util.Map">
+		select
+			t.loginid,
+			t.rolecode
+		from AUTH_USER_ROLE t
+		where t.loginid = #user#
+    </select>
+    
+    <select id="queryUserRoleByLoginId" resultClass="t-role"  parameterClass="java.util.Map">
+		SELECT
+		    R.*
+		FROM 
+		    AUTH_role R
+		WHERE
+		    1 = 1
+		    <isNotNull prepend=" and " property="auth">R.ID IN (SELECT UR.T_ROLE_ID FROM AUTH_USER_ROLE UR WHERE UR.T_USER_ID = #tUserId#)</isNotNull>
+		    <isNotNull prepend=" and " property="notAuth">R.ID NOT IN (SELECT UR.T_ROLE_ID FROM AUTH_USER_ROLE UR WHERE UR.T_USER_ID = #tUserId#)</isNotNull>
+    </select>
+</sqlMap>

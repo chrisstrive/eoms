@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ns-userRole">
+
+	<typeAlias alias="t-userRole" type="com.shecc.eoms.core.model.UserRole" />
+ 
+	<insert id="insertSelective" parameterClass="t-userRole">
+		insert into
+		AUTH_USER_ROLE
+		(
+		T_USER_ID,
+		T_ROLE_ID
+		)
+		values
+		(
+		#tUserId#,
+		#tRoleId#
+		)
+    </insert>
+    
+ 	<select id="queryUserRole" resultClass="t-userRole"  parameterClass="java.util.Map">
+		select
+			t.id,
+			t.T_USER_ID tUserId,
+			t.T_ROLE_ID tRoleId
+		from AUTH_USER_ROLE t
+		where t.T_USER_ID = #tUserId#
+    </select>
+    
+ 	<update id="bachDelRoleByLoginId"  parameterClass="java.util.Map">
+ 		DELETE FROM AUTH_USER_ROLE WHERE T_USER_ID = #tUserId#
+ 	</update>
+</sqlMap>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="
+<@sp.contextPath/>/static/jquery/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="
+<@sp.contextPath/>/static/jquery/themes/icon.css">
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.easyui.min.js"></script>
+<style type="text/css">
+</style>
+</head>
+<script>
+function loadMenu(menu){
+	var menuNode = "";
+	for(var i = 0; i < menu.length; i++){
+		menuNode += "<li><span>" + menu[i].menuName + "</span>";
+		var isParent = menu[i].isParent;
+		var subMenuList = menu[i].subMenuList;
+		if(isParent == "1" 
+				&& subMenuList != null){
+			menuNode += setSubMenu(subMenuList);
+		}
+		menuNode += "</li>";
+	}
+	return menuNode;
+}
+
+function setSubMenu(subMenuList){
+	var menuNode = ""; 
+	for(var j = 0; j < subMenuList.length; j++){
+		menuNode += "<ul><li><span>" 
+					+ (subMenuList[j].url != null ? ("<a href=\"<@sp.contextPath/>" + subMenuList[j].url + "\" target=\"centerIframe\">" + subMenuList[j].menuName + "</a>") : subMenuList[j].menuName) 
+					+ "</span>";
+		var subParent = subMenuList[j].isParent;
+		var subMenuListTmp = subMenuList[j].subMenuList;
+		if(subParent == "1"
+					&& subMenuListTmp != null){
+			menuNode += setSubMenu(subMenuListTmp);
+		}
+		menuNode += "</li></ul>";
+	}
+	return menuNode;
+}
+</script>
+<body>
+
+<!-- 菜单 -->
+<div region="west" split="false" style="border-left:1px solid;border-right:0px;width:200px;overflow:auto;" title="系统菜单">
+<div class="easyui-accordion" fit="true" border="false" style="overflow:auto;">
+<ul id="tree" class="easyui-tree">
+	<ul class="easyui-tree">
+	
+	 
+	<script>
+	var menu = ${modelMap.menu};
+	var str = loadMenu(menu);
+	document.write(str);
+	</script>
+	
+	<!-- 动态菜单 -->
+	<!-- 
+	<#if menuList?exists>
+		<#list menuList as ls1>
+			<li>
+				<span> ${ls1.menuName}</span>
+				<#if "${ls2.isParent}"=="1" >
+					
+				</#if>	
+				
+				
+				
+				<#if result2?exists>
+					<#list result2 as ls2>
+						<#if "${ls2.parent}"=="${ls1.id}" >
+						<ul>
+							<li><span>
+							<a href="<@sp.contextPath/>${ls2.url}" target="centerIframe">${ls2.menuName}</a>							
+							</span></li>
+						</ul>
+						</#if>
+					</#list>
+				</#if>	
+			</li>				
+		</#list>
+	</#if>	
+	 -->	
+	</ul>
+</ul>
+</div>
+</div>
+</body>
+
+</html>

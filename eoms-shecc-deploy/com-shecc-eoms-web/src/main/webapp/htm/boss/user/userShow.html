@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+<script src="<@sp.contextPath/>/static/jquery/plugins/jquery.form.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<@sp.contextPath/>/static/boss/js/fckeditor/fckeditor.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/uploadify/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/uploadify/uploadfile.js"></script>
+<script src="<@sp.contextPath/>/static/boss/js/validate.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/js/uploadify/uploadify.css"/>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/validate.js"></script>
+
+<link rel="stylesheet"
+	href="<@sp.contextPath/>/static/boss/ztree/css/demo.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="<@sp.contextPath/>/static/boss/ztree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.exedit-3.5.js"></script>
+</head>
+<script type="text/javascript">
+
+/**
+ * 选择理财师
+ */
+function selectData(){
+	var url = "<@sp.contextPath/>/employeedefault.htm?method=selectEmployeeDispth";
+	var childRst = window.showModalDialog(url, window, "dialogWidth:1100px;dialogHeight:auto;status:no;help:no;resizable:yes;");
+	var childRstArry = childRst.split(":");
+	$("#tEmployeeId").attr("value", childRstArry[0]);
+	$("#lcsmz").attr("value", childRstArry[1]);
+}
+
+</script>
+<body>
+<form method="post" id="postForm" class="form"> 
+	<!--mod_box -->
+	<div class="mod_box">
+		<h3 class="head">用户信息</h3>
+		<div class="body">
+			<div id="showMsgDiv" class="tips_err" style="display:none">
+					<span class="onError" id="showMsg"></span>
+			</div>
+			<table  class="table txtL">
+				<tbody>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">登陆名:</td>
+						<td>
+							<input type="text" class="inp_normal w200" id="userName" name="userName" maxlength="60" value="${user.userName}">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">真实姓名:</td>
+						<td>
+							<input type="text" class="inp_normal w200" id="realName" name="realName" maxlength="60" value="${user.realName}">
+						</td>
+					</tr>
+					<tr class="trForContent1" id="refnumDiv">
+						<td class="txtR" width="20%">关联理财师:</td>
+						<td>
+							<input type="text" class="inp_normal w200" name="lcsmz" id="lcsmz" value="${user.lcsmz}" readonly="readonly"/>
+							<input type="hidden" id="tEmployeeId" name="tEmployeeId" value="${user.tEmployeeId}"/>
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">组织机构:</td>
+						<td>
+							<input id="orgObj" class="inp_normal w200" type="text" readonly value="${user.orgName}" class="inp_normal w200" />
+							<input type="hidden" id="tOrganizationId" name="tOrganizationId" value="${user.tOrganizationId}"/>
+
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">默认显示工作台:</td>
+						<td>
+							<select id="dashBoard" name="dashBoard" class="inp_normal w200" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="PM">产品经理工作台</option>
+								<option value="LCS">理财师工作台</option>
+								<option value="TDZ">团队长工作台</option>
+								<option value="HTJL">项目经理工作台</option>
+								<option value="HT">后台工作台</option>
+							</select>
+							<script>
+							var count = $("#dashBoard option").length; 
+							for(var i = 0; i < count; i++) {
+								 var optionObj = $("#dashBoard").get(0).options[i];
+								 if(optionObj.value == "${user.dashBoard}"){
+									 optionObj.selected = true; 
+								 }
+							} 
+							</script>
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">移动电话:</td>
+						<td>
+							<input type="text" id="mobileNo" class="inp_normal w200" name="mobileNo" maxlength="11" value="${user.mobileNo}">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">固定电话:</td>
+						<td>
+							<input type="text" id="phone" class="inp_normal w200" name="phone" maxlength="13" value="${user.phone}">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">EMAIL:</td>
+						<td>
+							<input type="text" id="email" class="inp_normal w200" name="email" maxlength="30" value="${user.email}">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="txtC mt10">
+			<input type="hidden" name="id" value="${user.id}"/>
+			</div>
+		</div>
+	</div>
+	<!--/mod_box --> 
+	
+	<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+		<ul id="treeDemo" class="ztree" style="margin-top:0; width:250px; height: 300px;"></ul>
+	</div>
+</form>
+<div class="popup" id="popupDiv">  
+      <!--IE6下，DIV默认不能遮盖select标签，可在此处放置一个iframe，以达到遮盖效果，其他浏览器可以不要-->  
+      <iframe frameborder="1" scrolling="no" height="100%" width="100%" class="fff"></iframe>  
+</div> 
+<SCRIPT type="text/javascript">
+	
+function allDisabled(){  
+	$("input[type=text]").attr("disabled", "disabled");  	
+}
+    	
+$(document).ready(function(){
+	allDisabled();
+});
+
+</SCRIPT>
+</body>
+</html>

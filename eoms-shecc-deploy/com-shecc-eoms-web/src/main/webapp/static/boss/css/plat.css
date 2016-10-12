@@ -1,0 +1,28 @@
+.mod_plat_left{ margin:2px; background:#FFFFFF;width: 250px;float: left}
+.mod_plat_middle{ margin:2px; background:#FFFFFF;width: 400px;float: left
+}
+.mod_plat_right{ margin:2px; background:#FFFFFF;width: 320px;float: left
+}
+.mod_plat_left .head {padding:0 15px; height:40px; line-height:40px; border:1px solid #99acc9; background:url(../img/tit_bg.png) 0 0 repeat-x;font-weight:700; color:#294f85; position:relative; overflow:hidden; _zoom:1 }
+.mod_plat_left  .head input{padding:0 3px; height:24px;}
+.mod_plat_left  .body { position:relative;margin-top:-1px; padding:1px; border:1px solid #99acc9;  overflow:hidden; _zoom:1}
+.mod_plat_left  .pad20 { padding:5px 20px 10px }
+.mod_plat_left  .border_b { border-bottom:1px solid #ddd }
+.mod_plat_left  .title { float:left; color:#333; margin-right:5px }
+.mod_plat_left  .more { float:right; line-height:24px }
+
+.mod_plat_middle .head {padding:0 15px; height:40px; line-height:40px; border:1px solid #99acc9; background:url(../img/tit_bg.png) 0 0 repeat-x;font-weight:700; color:#294f85; position:relative; overflow:hidden; _zoom:1 }
+.mod_plat_middle  .head input{padding:0 3px; height:24px;}
+.mod_plat_middle  .body { position:relative;margin-top:-1px; padding:1px; border:1px solid #99acc9;  overflow:hidden; _zoom:1}
+.mod_plat_middle  .pad20 { padding:5px 20px 10px }
+.mod_plat_middle  .border_b { border-bottom:1px solid #ddd }
+.mod_plat_middle  .title { float:left; color:#333; margin-right:5px }
+.mod_plat_middle  .more { float:right; line-height:24px }
+
+.mod_plat_right .head {padding:0 15px; height:40px; line-height:40px; border:1px solid #99acc9; background:url(../img/tit_bg.png) 0 0 repeat-x;font-weight:700; color:#294f85; position:relative; overflow:hidden; _zoom:1 }
+.mod_plat_right  .head input{padding:0 3px; height:24px;}
+.mod_plat_right  .body { position:relative;margin-top:-1px; padding:1px; border:1px solid #99acc9;  overflow:hidden; _zoom:1}
+.mod_plat_right  .pad20 { padding:5px 20px 10px }
+.mod_plat_right  .border_b { border-bottom:1px solid #ddd }
+.mod_plat_right  .title { float:left; color:#333; margin-right:5px }
+.mod_plat_right  .more { float:right; line-height:24px }

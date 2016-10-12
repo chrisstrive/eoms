@@ -1,0 +1,151 @@
+/* CSS Document */
+*{
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+body {
+	overflow-y: auto;
+	background-color: #85776f;
+}
+.input_who {
+	float: right;
+	overflow: hidden;
+	font-size: 12px;
+	height: 26px;
+	width: auto;
+	line-height: 26px;
+	color: #FFF;
+	margin-right: 5px;
+}
+
+.input_who a{
+	text-decoration:none;
+	overflow: hidden;
+	font-size: 12px;
+	color: #FFF;
+	}
+
+.ti_4 {
+	height: 8px;
+	background-color: #efe8dd;
+}
+
+.ti_5 {
+	overflow: hidden;
+	background-color: #efe8dd;
+}
+
+.ti_5_1 {
+	width: 100%;
+	background-color: #F5F1EB;
+	height: 100%;
+}
+
+.menubar{
+	margin-left:5px;
+	background-image:url(images/wi_an3.png);
+	width: 195px;
+	line-height: 33px;
+	float: left;
+	color: #78464d;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	overflow: hidden;
+	font-family: "微软雅黑";
+	font-size: 13px;
+	border: 1px solid #eaeaea;
+	cursor:pointer;
+	margin-top:1px;
+}
+
+.menubar p{
+	float: left;
+	height: 32px;
+	width: 20px;
+	padding-left: 13px;
+	font-size: 18px;
+	color: #413a61;
+}
+
+.submenubar{
+	font-family: "微软雅黑";
+	margin-left:5px;
+	cursor: pointer;
+	color: #777;
+	font-size: 14px;
+	border: #E7E7E7 1px solid;
+	border-top-color: #FFF;
+	background-color: #F4F4F4;
+	height: 28px;
+	line-height:28px;
+	width: 195px;
+	float:left;
+}
+
+.submenubar h5{
+	margin-left:15px;
+}
+
+.thrdmenubar{
+	font-family: "微软雅黑";
+	margin-left:5px;
+	cursor: pointer;
+	color: #777;
+	font-size: 12px;
+	border: #E7E7E7 1px solid;
+	border-top-color: #FFF;
+	height: 28px;
+	line-height:28px;
+	width: 195px;
+}
+
+.thrdmenubar a{
+	margin-left:20px;
+	color: #777;
+	text-decoration:none;
+}
+
+.topC0{
+	float: left;
+	WIDTH: 98px;
+	line-height: 23px;
+	margin-left: 5px;
+	background-image: url(images/wi_an2.png);
+	background-repeat: no-repeat;
+	font-family: "微软雅黑";
+	font-size: 13px;
+	text-align:center;
+	font-weight:blod;
+	cursor:pointer;
+}
+
+.topC1 {
+	float: left;
+	WIDTH: 98px;
+	margin-left: 5px;
+	line-height: 23px;
+	background-image: url(images/wi_an1.png);
+	background-repeat: no-repeat;
+	font-family: "微软雅黑";
+	font-size: 13px;
+	text-align:center;
+	font-weight:blod;
+	cursor:pointer;
+}
+
+.expa_3 {
+	float: left;
+	height: 25px;
+	width: 77px;
+	background-image: url(wi_an8.png);
+	margin-top: 10px;
+	background-repeat: no-repeat;
+	line-height: 25px;
+	text-align: center;
+	margin-left: 8px;
+}
+
+
+
+

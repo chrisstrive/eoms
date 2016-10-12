@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+<script src="<@sp.contextPath/>/static/jquery/plugins/jquery.form.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
+<script language="javascript" type="text/javascript" src="<@sp.contextPath/>/static/boss/js/fckeditor/fckeditor.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/uploadify/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/uploadify/uploadfile.js"></script>
+<script src="<@sp.contextPath/>/static/boss/js/validate.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/js/uploadify/uploadify.css"/>
+<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/validate.js"></script>
+
+<link rel="stylesheet"
+	href="<@sp.contextPath/>/static/boss/ztree/css/demo.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="<@sp.contextPath/>/static/boss/ztree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript"
+	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.exedit-3.5.js"></script>
+</head>
+<script type="text/javascript">
+/**
+*	锁屏
+*/
+function lockScreen(){
+	$("#popupDiv").show();  
+}
+
+/**
+*	解锁
+*/
+function unLockScreen(){
+	$("#popupDiv").hide();  
+}
+
+/**
+*	显示验证信息
+*/
+function showValidateMsg(content){
+	$("#showMsgDiv").show();
+	$("#showMsg").html(content);
+}
+
+function init(){
+	  var destAgentId = $("#destAgentIdHis").val();
+	
+	  $.ajax({  
+        type : 'post',  
+        url : '<@sp.contextPath/>/destAgentDefault.htm?method=dicDestAgent',  
+        dataType : 'json',  
+        success : function (xmlq) { 
+            if(xmlq.dataList){
+          	  $.each(xmlq.dataList, function(i, doc){ 
+          		var str = "";
+          		if(doc.agentId && destAgentId && doc.agentId == destAgentId){
+          			str ="<option value='"+doc.agentId+"' selected>"+doc.agentName+"</option>";
+          		}else{
+          			str ="<option value='"+doc.agentId+"'>"+doc.agentName+"</option>";
+          		}
+          	
+          		  
+          		  $("#destAgentId").append(str);
+          		 
+                }); 
+            }
+      	  
+
+
+        },  
+        error : function (xmlq, errq) {  
+            alert("系统错误");  
+        }  
+    });  
+}
+
+/**
+*	更新
+*/
+$(function() {      
+	init();
+	
+    $("#updatePost").bind("click", function() {    
+        $.ajax({  
+            type : 'post',  
+            url : '<@sp.contextPath/>/userdefault.htm?method=updateUser',  
+            dataType : 'json',  
+            data : $('#postForm').serialize(),  
+            beforeSend:function(){
+            	// 隐藏错误提示DIV
+            	$("#showMsgDiv").hide();
+            	
+            	// 锁屏
+            	lockScreen();
+            	if(validateForm()
+            			&& confirm("是否确认更新?")){
+            		return true;
+            	}else{
+            		// 解锁
+                	unLockScreen();
+            		return false;
+            	}
+            },//发送数据之前
+            complete:function(){
+            	// 解锁
+            	unLockScreen();
+            },//接收数据完毕
+            success : function (xmlq) {  
+            	unLockScreen();
+            	var returnCode = xmlq.returnCode;
+            	var description = xmlq.description;
+            	if(returnCode == "0000"){
+            		alert("更新成功!");
+            		//var url = "<@sp.contextPath/>/ppactdefault.htm?method=defaultMethod";
+        	    	//location.href = url;
+            	}else{
+            		alert(description);
+            	}
+            },  
+            error : function (xmlq, errq) {  
+                alert("系统错误");  
+            }  
+        });  
+     });   
+}); 
+
+/**
+*	表单校验
+*/
+function validateForm(){
+	var userName = $("#userName").val();
+	if(userName.length <= 0){
+		showValidateMsg("登陆名不能为空!");
+		unLockScreen();
+		return false;
+	}
+	var realName = $("#realName").val();
+	if(realName.length <= 0){
+		showValidateMsg("真实姓名不能为空!");
+		unLockScreen();
+		return false;
+	}
+
+	return true;
+}
+
+
+
+//返回跳转
+$(function() {      
+    $("#backDefaultPage").bind("click", function() {   
+    		var url = "<@sp.contextPath/>/userdefault.htm?method=userDefault";
+	    	location.href = url;
+	});
+});
+
+</script>
+<body>
+<form method="post" id="postForm" class="form"> 
+	<!--mod_box -->
+	<div class="mod_box">
+		<h3 class="head">更新用户信息</h3>
+		<div class="body">
+			<div id="showMsgDiv" class="tips_err" style="display:none">
+					<span class="onError" id="showMsg"></span>
+			</div>
+			<table  class="table txtL">
+				<tbody>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">登陆名<font color="red">*</font>:</td>
+						<td>
+							<input type="text" id="userName" name="userName" maxlength="60" value="${user.userName}" class="inp_normal w200">
+						</td>
+					</tr>
+					
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">对应代理人:</td>
+						<td>
+						    <input type="hidden" id="destAgentIdHis" name="destAgentIdHis" maxlength="60" value="${user.destAgentId?default('')}" class="inp_normal w200">
+							<select id="destAgentId" name="destAgentId" class="inp_normal w200">
+								<option value="">--请选择--</option>
+							</select>
+						</td>
+					</tr>
+					
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">真实姓名<font color="red">*</font>:</td>
+						<td>
+							<input type="text" id="realName" name="realName" maxlength="60" value="${user.realName}" class="inp_normal w200">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">移动电话:</td>
+						<td>
+							<input type="text" id="mobileNo" name="mobileNo" maxlength="11" value="${user.mobileNo}" class="inp_normal w200">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">固定电话:</td>
+						<td>
+							<input type="text" id="phone" name="phone" maxlength="13" value="${user.phone}" class="inp_normal w200">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">EMAIL:</td>
+						<td>
+							<input type="text" id="email" name="email" maxlength="30" value="${user.email}" class="inp_normal w200">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="txtC mt10">
+			<input type="hidden" name="id" value="${user.id}"/>
+			<input class="btn btnA" id="updatePost" type="button" value="确定修改"/>
+			<input class="btn btnA" type="button" value="返回" onclick="javascript:history.back();"/>
+			</div>
+		</div>
+	</div>
+	<!--/mod_box --> 
+	
+	<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+		<ul id="treeDemo" class="ztree" style="margin-top:0; width:250px; height: 300px;"></ul>
+	</div>
+</form>
+<div class="popup" id="popupDiv">  
+      <!--IE6下，DIV默认不能遮盖select标签，可在此处放置一个iframe，以达到遮盖效果，其他浏览器可以不要-->  
+      <iframe frameborder="1" scrolling="no" height="100%" width="100%" class="fff"></iframe>  
+</div> 
+<SCRIPT type="text/javascript">
+	
+</SCRIPT>
+</body>
+</html>

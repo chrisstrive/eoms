@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ns-dic">
+
+	<typeAlias alias="t-dic" type="com.shecc.eoms.core.model.Dic" />
+
+	<insert id="insertSelective" parameterClass="t-dic">
+	<![CDATA[ insert into
+		PARA_DIC
+		(
+			dic_txt,
+			type,
+			note,
+			state,
+			dic_id
+		)
+		select
+			#dicTxt#,
+			#type#,
+			max(d.note),
+			1,
+			max(d.dic_id) + 1
+		from
+			PARA_DIC d
+		where
+			d.type = #type#]]>
+		
+		<selectKey resultClass="int" keyProperty="id">
+			SELECT @@IDENTITY
+			AS id
+		</selectKey>
+		
+	</insert>
+	
+	<update id="updateByid" parameterClass="t-dic" >
+	update PARA_DIC set dic_txt=#dicTxt# ,type=#type#
+	where id=#id#
+	</update>
+	
+	<update id="deleteStatus" parameterClass="java.lang.Integer" >
+	update PARA_DIC set state = 0	where id=#id#
+	</update>
+	
+
+	<select id="findByType" parameterClass="java.util.Map" resultClass="t-dic">
+	select * from PARA_DIC t
+	where 1=1
+	<isNotEmpty prepend=" and " property="type">t.tye = #type#</isNotEmpty>
+	
+	order by type asc,id asc 
+	</select>
+	
+	<select id="findById" resultClass="t-dic">
+	select id,dic_txt dicTxt,type,note,is_default isDefault from PARA_DIC t
+	where 1=1 and id=#id#
+	</select>
+	
+	<select id="queryDicType" resultClass="t-dic">
+		select DISTINCT d.type, d.note from PARA_DIC d where d.state = 1 ORDER BY d.type
+	</select>
+	
+	
+
+	<select id="queryDicForPage" resultClass="t-dic">
+	    	select dic_id id,dic_txt dicTxt,type,note,id dicId,is_default isDefault
+	      	from PARA_DIC t
+	     	where 1 = 1
+				<isNotEmpty prepend=" and " property="dicTxt">dic_txt like '%$dicTxt$%'</isNotEmpty>
+				<isNotEmpty prepend=" and " property="type">type = #type#</isNotEmpty>
+				and state = 1
+				order by type  asc,dic_id asc
+	</select>	
+	
+	<select id="count_queryDicForPage" resultClass="java.lang.Integer">
+		select count(1)
+		from PARA_DIC t
+     	where 1 = 1
+			<isNotEmpty prepend=" and " property="dicTxt">dic_txt like '%$dicTxt$%'</isNotEmpty>
+			<isNotEmpty prepend=" and " property="type">type = #type#</isNotEmpty>
+			and state = 1
+	</select>
+
+	
+</sqlMap>

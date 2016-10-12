@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="
+<@sp.contextPath/>/static/jquery/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="
+<@sp.contextPath/>/static/jquery/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/easyloader.js"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/home.css" />
+
+</head>
+<script>
+/**
+*	表单提交
+*/
+$(function() {      
+    $("#addPost").bind("click", function() {    
+        $.ajax({  
+            type : 'post',  
+            url : '<@sp.contextPath/>/authdefault.htm?method=addMenu',  
+            dataType : 'json',  
+            data : $('#postForm').serialize(),  
+            beforeSend:function(){
+            },//发送数据之前
+            complete:function(){
+            },//接收数据完毕
+            success : function (xmlq) {  
+            	var returnCode = xmlq.returnCode;
+            	var description = xmlq.description;
+            	if(returnCode == "0000"){
+            		alert("菜单添加成功");
+            	}else{
+            		alert(description);
+            	}
+            },  
+            error : function (xmlq, errq) {  
+                alert("系统错误");  
+            }  
+        });  
+     });   
+}); 
+
+/**
+function loadMenu(menu){
+	var menuNode = "";
+	for(var i = 0; i < menu.length; i++){
+		menuNode += "<li><span>" 
+					+ "<input type=\"checkbox\" style=\"cursor:pointer;display:none\" name=\"menuIds\" id=\"menu_" + menu[i].id + "\" value=\"" + menu[i].id + "\" readonly=\"readonly\"" + (menu[i].isCheck == "0" ? "" : " checked=\"checked\"") + " onclick=\"return false\"/>"
+					+ menu[i].menuName + "</span>";
+		var isParent = menu[i].isParent;
+		var subMenuList = menu[i].subMenuList;
+		if(isParent == "1" 
+				&& subMenuList != null){
+			menuNode += setSubMenu(subMenuList, menu[i].id, menu[i].id);
+		}
+		menuNode += "</li>";
+	}
+	return menuNode;
+}
+
+function setSubMenu(subMenuList, parentIds, parentId){
+	var menuNode = "";
+	for(var j = 0; j < subMenuList.length; j++){
+		var subParent = subMenuList[j].isParent;
+		var subMenuListTmp = subMenuList[j].subMenuList;
+		menuNode += "<ul><li><span>" 
+					+ "<input type=\"hidden\" name=\"" + parentId + "\" value=\"" + subMenuList[j].id + "\"/>"
+					+ "<input type=\"checkbox\" name=\"menuIds\" id=\"menu_" + subMenuList[j].id + "\" value=\"" + subMenuList[j].id + "\" " + (subMenuList[j].isCheck == "0" ? "" : " checked=\"checked\"") + (subMenuListTmp != null ? "style=\"cursor:pointer;display:none\" readonly=\"readonly\" onclick=\"return false\"" : "style=\"cursor:pointer\" onclick=\"checkParentBox('" + parentIds + "');\"") + "/>" 
+					+ subMenuList[j].menuName + "</span>";
+		if(subMenuListTmp != null
+					&& subParent == "1"){
+			menuNode += setSubMenu(subMenuListTmp, subMenuList[j].id + "_" +  parentIds, subMenuList[j].id);
+		}
+		menuNode += "</li></ul>";
+	}
+	return menuNode;
+}
+*/
+</script>
+
+
+<body>
+<form method="post" id="postForm" class="form">
+<div class="mod_box">
+<h3 class="head">角色菜单维护</h3>
+<div class="body">
+<table  class="table txtL">
+<tbody>
+	<tr class="trForContent1">
+		<tr class="trForContent1">
+			<td class="txtR" width="25%"><b>角色名</b></td>
+			<td>
+				<b>角色菜单</b>
+			</td>
+		</tr>
+		<tr>
+		<td class="txtR"><b><font color="red">${role.roleName}</font></b></td>
+		<td>
+		<!-- 菜单 -->
+		<div region="west" style="width: 500px;overflow:auto;" title="系统菜单">
+		<ul id="tree" class="easyui-tree">
+			<ul class="easyui-tree">
+			${modelMap.menu}
+			<!-- 动态菜单 -->
+			<!-- 
+				<#if parentList?exists>
+					<#list parentList as ls1>
+						<li>
+							<span> 
+							<#if "${ls1.isCheck}"=="0" >
+							<input type="checkbox" style="cursor:pointer" name="menuCode" id="parent_${ls1.menuCode}" value="${ls1.menuCode}" readonly="readonly" onclick="return false"/>
+							</#if>
+							<#if "${ls1.isCheck}"=="1" >
+							<input type="checkbox" style="cursor:pointer" name="menuCode" id="parent_${ls1.menuCode}" value="${ls1.menuCode}" checked="checked" readonly="readonly" onclick="return false"/>
+							</#if>&nbsp;
+							${ls1.menuName}</span>
+							<#if chrdList?exists>
+								<#list chrdList as ls2>
+									<#if "${ls2.parent}"=="${ls1.menuCode}" >
+									<ul>
+										<li><span>
+										<#if "${ls2.isCheck}"=="0" >
+										<input type="hidden" name="${ls1.menuCode}" value="${ls2.menuCode}"/>
+										<input type="checkbox" name="menuCode" style="cursor:pointer" id="chld_${ls2.menuCode}" value="${ls2.menuCode}" onclick="checkParentBox('${ls1.menuCode}');"/>
+										</#if>
+										<#if "${ls2.isCheck}"=="1" >
+										<input type="hidden" name="${ls1.menuCode}" value="${ls2.menuCode}"/>
+										<input type="checkbox" name="menuCode" style="cursor:pointer" id="chld_${ls2.menuCode}" checked value="${ls2.menuCode}" onclick="checkParentBox('${ls1.menuCode}');"/>
+										</#if>
+										&nbsp;${ls2.menuName}</span></li>
+									</ul>
+									</#if>
+								</#list>
+							</#if>	
+						</li>				
+					</#list>
+				</#if>		
+			</ul>
+			 -->
+		</ul>
+		</div>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+	function checkParentBox(partenCode){
+		if(partenCode.indexOf("_") > 0 ){
+			var partenCodes = partenCode.split("_");
+			for(var n = 0; n < partenCodes.length; n++){
+				checkParentBox(partenCodes[n]);
+			}
+		}
+		
+		var childEles = document.getElementsByName(partenCode);
+		var checkFlag = false;
+		for(var i = 0; i < childEles.length; i++){
+			var chldValue = childEles[i].value;
+			var chldEle = document.getElementById("menu_" + chldValue);
+			if(chldEle.checked){
+				checkFlag = true;
+			}
+		}
+		var parentEle = document.getElementById("menu_" + partenCode);
+		if(checkFlag){
+			parentEle.checked = true;
+		}else{
+			parentEle.checked = false;
+		}
+	}
+</script>
+</div>
+<div class="txtC mt10">
+	<input type="hidden" name="roleId" value="${role.id}"/>
+	<input class="btn btnA" id="addPost" type="button" value="保存菜单权限"/>
+	<input class="btn btnA" type="button" id="backDefaultPage" onclick="javascript:history.back();" value="返回" />
+</div>
+</div>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+	"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	
+	<!-- 定义映射-->
+	<bean id="LoginHandlerMapping" 
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>	
+				<prop key="/login.htm">loginController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="loginController" class="com.shecc.eoms.web.controller.LoginController">
+		
+		<property name="methodNameResolver">
+			<ref bean="paramResolver"/>
+		</property>
+		
+		<property name="userService">
+			<ref bean="ser-UserService"/>
+		</property>
+
+		<property name="menuService">
+			<ref bean="ser-MenuService"/>
+		</property>		
+		
+		
+		<property name="homePage">
+			<value>/home</value>
+		</property>
+		
+		<property name="indexPage">
+			<value>/index</value>
+		</property>
+		
+		<property name="loginPage">
+			<value>/login</value>
+		</property>
+		
+		<property name="loginoutPage">
+			<value>/loginout</value>
+		</property>
+		
+	</bean>
+	
+</beans>

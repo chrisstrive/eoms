@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>箱货管理系统</title>
+<link href="static/boss/css/login.css" type="text/css" media="screen" rel="stylesheet" />
+<link href="static/login/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+<script src="static/login/jquery-1.6.2.min.js"></script>
+<script src="static/login/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="static/login/jquery.keyboard.extension-typing.js"></script>
+<link type="text/css" href="static/login/keyboard.css" rel="stylesheet" />
+<script type="text/javascript" src="static/login/jquery.keyboard.js"></script>
+
+<script type="text/javascript">
+	function sub(){
+		if("" == document.getElementById('input_name').value || "" == document.getElementById('input_pwd').value){
+			return;
+		}else{
+			document.getElementById('login_form1').submit();
+		}
+	}
+
+	// 回车事件
+	document.onkeydown = function(e){
+		var evt=evt?evt:(window.event?window.event:null);//兼容IE和FF
+		if (evt.keyCode==13){
+            document.getElementById("input_sub").click();
+        }
+    }
+</script>
+</head>
+
+<body>
+<div id="weiyi">
+  <div id="lay01"></div>
+  <div id="lay02"></div>
+  <div id="lay03"></div>
+  <div id="lay04">
+       <DIV id=layform>
+       <form id="login_form1" name="login_form1" method="post" action="login.htm?method=login">
+      <FIELDSET>
+        <INPUT id=input_name tabIndex=1 name="user_name">
+        <INPUT id=input_pwd tabIndex=2 type="password" name="user_password">
+        <INPUT id=isAutoLogin tabIndex=2 type="hidden" name="isAutoLogin" value="0">
+        <INPUT id=input_sub tabIndex=4 value=登录 type=button name=input_sub onclick="sub();">
+      </FIELDSET>
+    </form>
+    
+  </DIV>
+  </div>
+  <div id="lay05"><font color="#FF0000" size="2">${msgInfo?default("")}</font></div>
+  <div id="lay06"></div>
+  <div id="lay07"></div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('#input_pwd').keyboard({
+                openOn: null,
+                stayOpen: true,
+                layout: 'qwerty'
+            }).addTyping();
+
+            $("#input_sub").click(function() {
+                $("#loginbtn").attr("disabled", "disabled");
+
+            })
+        });
+    </script>
+</body>
+</html>

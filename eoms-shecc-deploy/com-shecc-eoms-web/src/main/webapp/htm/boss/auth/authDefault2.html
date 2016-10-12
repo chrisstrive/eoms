@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../static/login/styles.css" type="text/css" media="screen" rel="stylesheet" />
+    <link href="../static/login/jquery-ui-1.8.16.custom.css" rel="stylesheet">
+    <script src="../static/login/jquery-1.6.2.min.js"></script>
+    <script src="../static/login/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="../static/login/jquery.keyboard.extension-typing.js"></script>
+    <link type="text/css" href="../static/login/keyboard.css" rel="stylesheet" />
+    <script type="text/javascript" src="../static/login/jquery.keyboard.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/skin/css/menu.css">
+    
+</head>
+
+<script type="text/javascript">
+
+function sub(){
+
+	document.getElementById('hiddenTx2').style.display="none";
+	
+	var ts = true;
+	var cs = /^[0-9]+$/;
+	
+	if((document.getElementById('authin2').value == "" || document.getElementById('authin2').value == "undefined") &&
+			(document.getElementById('authin').value == "" || document.getElementById('authin').value == "undefined") ){
+		ts = false;
+	}else if((!cs.test(document.getElementById('authin2').value))&& (!cs.test(document.getElementById('authin').value))){
+		ts = false;
+	}
+
+	if(ts){
+		document.getElementById('authform21').submit();
+	}else{
+		document.getElementById('hiddenTx2').style.display="block";
+	}
+	
+}
+
+
+
+
+</script>
+
+<style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+-->
+</style>
+
+
+  <body>
+	
+
+	
+	<table width="98%" border="0" cellpadding="0" cellspacing="1" bgcolor="#D1DDAA" align="center">
+	<tr>
+ 	<td height="26" background="skin/images/newlinebg3.gif">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  			<tr bgcolor="#EEF4EA"> 
+  				<td align="center">
+  					<h4 align="center" class="coolbg np">用户角色权限管理</h4>
+ 				</td>
+ 			</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+	
+	<br>
+	<br>
+	
+	<form action="<@sp.contextPath/>/authdefault.htm?method=userRole" method="post" id="authform21" name="authform21">
+		<div id="d1" align="center">
+		用户ID： <input type="text" maxlength="20" id="authin" name="authin"/>
+		配置角色ID：
+		<input type="text" maxlength="20" id="authin2" name="authin2"/>
+		 <input type="button" id="authbtn" name="authbtn" onclick="sub();" value="为此用户配置角色"/>
+		</div>
+	<br>
+		<div align="center" style="display: none" id="hiddenTx2" name="hiddenTx2">
+			<span class="STYLE1">请输入有效信息！</span>
+		</div>
+	</form>	
+		
+	<br>
+
+
+
+
+<#if retList2?exists>
+
+	<br>
+	<div id="d-o2" align="center" style="display:block">
+
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="3"  align="left"  class='title'><span>用户列表</span></td>
+  				</tr>
+  				<tr bgcolor="#FFFFFF">
+    				<td>用户ID</td> 
+				    <td>用户名</td>
+				    <td>用户类型</td> 
+  				</tr>
+  				<#list retList2 as ls3>
+							
+				<tr bgcolor=#FFFFFF>
+				   <td   align="left" width="30%" > <span class="STYLE1">${ls3.loginId}</span></td> 
+				   <td align="left"  width="30%" > ${ls3.userName} </td>
+				   <td align="left"  width="30%" > 
+				   
+				   <#if "${ls3.type}"=="1" >
+				   	管理员
+				   </#if>	
+				   <#if "${ls3.type}"=="2" >
+				   	合作机构
+				   </#if>
+				   <#if "${ls3.type}"=="3" >
+				   	管理员
+				   </#if>
+				     
+				   </td> 
+				</tr>
+									
+				</#list>
+  				
+			</table>
+
+	</div>
+
+</#if>
+
+	
+<#if retList?exists>	
+
+	<div id="d-o1" align="center" style="display:block">
+	
+			<table width="98%" align="center" border="0" cellpadding="4" cellspacing="1" bgcolor="#CBD8AC" style="margin-bottom:8px">
+  				<br>
+  				<tr bgcolor="#EEF4EA">
+    				<td colspan="2"  align="left"  class='title'><span>角色列表</span></td>
+  				</tr>
+  				<tr bgcolor="#FFFFFF">
+    				<td>角色ID</td> 
+				    <td>用户名</td>
+  				</tr>
+  				<#list retList as ls2>
+							
+				<tr bgcolor=#FFFFFF>
+				   <td   align="left" width="30%" > <span class="STYLE1">${ls2.roleCode}</span></td> 
+				   <td  align="left" width="30%" > ${ls2.roleName} </td>
+				</tr>
+									
+				</#list>
+  				
+			</table>
+	</div>
+</#if>
+	
+	
+		
+  </body>
+ </html> 

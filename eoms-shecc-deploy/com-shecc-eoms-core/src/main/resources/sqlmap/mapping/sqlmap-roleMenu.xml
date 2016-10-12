@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ns-roleMenu">
+
+	<typeAlias alias="t-roleMenu" type="com.shecc.eoms.core.model.RoleMenu" />
+
+	<insert id="insertSelective" parameterClass="t-roleMenu">
+		insert into
+		AUTH_ROLE_MENU
+		(
+		T_ROLE_ID,
+		T_MENU_ID
+		)
+		values
+		(
+		#tRoleId#,
+		#tMenuId#
+		)
+    </insert>
+    
+	<insert id="deleteSelective" parameterClass="t-roleMenu">
+		  delete from AUTH_ROLE_MENU where  T_ROLE_ID = #tRoleId# and T_MENU_ID=#tMenuId#
+    </insert>
+ 	
+ 	
+ 	<select id="queryRoleMenuByRoleId" resultClass="t-roleMenu">
+		select 
+		t3.id
+		t3.T_ROLE_ID,
+		t3.T_MENU_ID
+		from AUTH_ROLE_MENU t3 where t3.T_ROLE_ID=#tRoleId# 
+	</select>
+	
+	<delete id="deleteByRoleCode" parameterClass="java.util.Map">
+		delete from AUTH_ROLE_MENU where T_ROLE_ID = #roleId#
+	</delete>
+ 
+</sqlMap>

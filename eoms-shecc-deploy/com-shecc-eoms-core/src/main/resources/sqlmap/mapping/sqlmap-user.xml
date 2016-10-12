@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ns-user">
+
+	<typeAlias alias="t-user" type="com.shecc.eoms.core.model.User" />
+
+	<insert id="insertSelective" parameterClass="t-user">
+		insert into
+		AUTH_user
+		(
+		username,
+		realname,
+		passwd,
+		status,
+		mobileno,
+		phone,
+		email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		)
+		values
+		(
+		#userName#,
+		#realName#,
+		#passWd#,
+		#status#,
+		#mobileNo#,
+		#phone#,
+		#email#,
+		#photo#,
+		#upUid#,
+		#upUname#,
+		#remark#
+		)
+	</insert>
+
+	<select id="queryUserByNameAndPwd" resultClass="t-user"
+		parameterClass="java.util.Map">
+		select t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		from AUTH_user
+		t
+		where t.username = #userName#
+		and t.passwd = #userPwd#
+	</select>
+
+	<select id="checkUserByUserName" resultClass="t-user"
+		parameterClass="java.util.Map">
+		select t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		from AUTH_user
+		t
+		where t.username = #userName#
+	</select>
+
+	<select id="queryUser" resultClass="t-user">
+		select t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		from AUTH_user t
+		where t.status = 1
+	</select>
+
+	<update id="forbiddenUserById" parameterClass="java.util.Map">
+		update AUTH_user t
+		set t.status=2 where t.id = #id#
+	</update>
+
+	<update id="reOpenUser" parameterClass="java.util.Map">
+		update AUTH_user t set
+		t.status=1 where t.id = #id#
+	</update>
+
+	<update id="updateUser" parameterClass="java.util.Map">
+		update AUTH_user t set
+		t.passwd=#userPwd# where t.id = #id#
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterClass="t-user">
+		update AUTH_user t
+		set
+		<isNotNull property="phone">phone=#phone#,</isNotNull>
+		<isNotNull property="realName">realname=#realName#,</isNotNull>
+		<isNotNull property="userName">username=#userName#,</isNotNull>
+		<isNotNull property="mobileNo">mobileno=#mobileNo#,</isNotNull>
+		<isNotNull property="email">email=#email#,</isNotNull>
+		<isNotNull property="photo">photo=#photo#,</isNotNull>
+		<isNotNull property="upUid">up_uid=#upUid#,</isNotNull>
+		<isNotNull property="upUname">up_uname=#upUname#,</isNotNull>
+		<isNotNull property="remark">remark=#remark#,</isNotNull>
+		where t.id = #id#
+	</update>
+
+	<select id="queryUserForPage" resultClass="t-user">
+		select
+		t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		from AUTH_user t
+		where 1=1
+		<isNotNull prepend=" and " property="userName">t.username like
+			'%$userName$%'</isNotNull>
+		<isNotNull prepend=" and " property="realName">t.realname like
+			'%$realName$%'</isNotNull>
+		<isNotNull prepend=" and " property="status">t.status = #status#
+		</isNotNull>
+	</select>
+
+	<select id="count_queryUserForPage" resultClass="java.lang.Integer">
+		select count(1)
+		from AUTH_user t
+		where 1=1
+		<isNotNull prepend=" and " property="userName">t.username like
+			'%$userName$%'</isNotNull>
+		<isNotNull prepend=" and " property="status">t.status = #status#
+		</isNotNull>
+	</select>
+
+	<select id="findById" resultClass="t-user">
+		select t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		remark
+		from AUTH_user t
+		where t.id = #id#
+	</select>
+</sqlMap>

@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+BODY {
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-RIGHT: 0px;
+	PADDING-TOP: 0px;
+	TEXT-ALIGN: center;
+	OVERFLOW: hidden;
+	background-color: #85776f;
+}
+
+#weiyi {
+	height: 800px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 1220px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#weiyi #lay01 {
+	height: 100px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_1.png);
+}
+#weiyi #lay02{
+	height: 120px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_2.png);
+}
+#weiyi #lay03{
+	height: 130px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_8.png);
+}
+#weiyi #lay04{
+	height: 176px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_4.png);
+}
+#lay041 {
+	position: absolute;
+	width: 186px;
+	height: 21px;
+	z-index: 1;
+	left: 384px;
+	top: 12px;
+}
+.set{
+	width: 186px;
+	height: 21px;
+	line-height: 20;
+	border: 1px solid #746594;
+}
+
+#layform {
+	POSITION: relative;
+	MARGIN: 0px auto;
+	WIDTH: 700px;
+	HEIGHT: 176px
+}
+INPUT {
+	BORDER-BOTTOM: medium none;
+	BORDER-LEFT: medium none;
+	BACKGROUND-COLOR: transparent;
+	COLOR: #482325;
+	FONT-SIZE: 14px;
+	BORDER-TOP: medium none;
+	CURSOR: pointer;
+	FONT-WEIGHT: 600;
+	BORDER-RIGHT: medium none;
+	PADDING-TOP: 4px
+}
+#input_name {
+	POSITION: absolute;
+	WIDTH: 184px;
+	HEIGHT: 15px;
+	TOP: 18px;
+	LEFT: 386px
+}
+#input_pwd {
+	POSITION: absolute;
+	WIDTH: 183px;
+	HEIGHT: 15px;
+	TOP: 68px;
+	LEFT: 385px
+}
+#input_remdiv {
+	POSITION: absolute;
+	COLOR: #fff;
+	FONT-SIZE: 14px;
+	TOP: 100px;
+	LEFT: 420px
+}
+#input_sub {
+	POSITION: absolute;
+	TEXT-INDENT: -20em;
+	WIDTH: 187px;
+	HEIGHT: 31px;
+	TOP: 119px;
+	LEFT: 384px
+}
+#weiyi #lay05{
+	height: 100px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_5.png);
+}
+#weiyi #lay06{
+	height: 100px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_6.png);
+}
+#weiyi #lay07{
+	height: 74px;
+	overflow: hidden;
+	background-image: url(../img/weiyi_7.png);
+}
