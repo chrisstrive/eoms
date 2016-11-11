@@ -14,19 +14,19 @@ INSERT INTO `AUTH_MENU` VALUES (1003, 'CHANGEPWD', '修改密码', '/userdefault
 
 INSERT INTO `AUTH_MENU` VALUES (901, 'DICMNG', '数据字典', '/dicDefault.htm?method=dicDefault', 900, '1', 1);
 
-INSERT INTO `AUTH_MENU` VALUES (201, 'PROJECTMNG', '项目管理', '/projectmng.htm?method=list', 200, '1', 1);
-INSERT INTO `AUTH_MENU` VALUES (902, 'SYSTEMMNG', '系统管理', '/systemmng.htm?method=list', 200, '1', 2);
-INSERT INTO `AUTH_MENU` VALUES (203, 'SYSTYPEMNG', '系统类型管理', '/systypemng.htm?method=list', 200, '1', 3);
-INSERT INTO `AUTH_MENU` VALUES (204, 'BRANDMNG', '品牌管理', '/brandmng.htm?method=list', 200, '1', 4);
-INSERT INTO `AUTH_MENU` VALUES (205, 'MODELMNG', '型号管理', '/modelmng.htm?method=list', 200, '1', 5);
-INSERT INTO `AUTH_MENU` VALUES (206, 'CHKITEMMNG', '检查项管理', '/chkitemmng.htm?method=list', 200, '1', 6);
-INSERT INTO `AUTH_MENU` VALUES (207, 'MODELCHK', '品牌绑定检查项', '/modelchk.htm?method=list', 200, '1', 7);
-INSERT INTO `AUTH_MENU` VALUES (208, 'LOCATIONMNG', '位置管理', '/locationmng.htm?method=list', 200, '1', 8);
-INSERT INTO `AUTH_MENU` VALUES (209, 'DEVICEMNG', '设备管理', '/devicemng.htm?method=list', 200, '1', 9);
+INSERT INTO `AUTH_MENU` VALUES (201, 'PROJECTMNG', '项目管理', '/projectmng.htm?method=queryView', 200, '1', 1);
+INSERT INTO `AUTH_MENU` VALUES (902, 'SYSTEMMNG', '系统管理', '/systemmng.htm?method=queryView', 200, '1', 2);
+INSERT INTO `AUTH_MENU` VALUES (203, 'SYSTYPEMNG', '系统类型管理', '/systypemng.htm?method=queryView', 200, '1', 3);
+INSERT INTO `AUTH_MENU` VALUES (204, 'BRANDMNG', '品牌管理', '/brandmng.htm?method=queryView', 200, '1', 4);
+INSERT INTO `AUTH_MENU` VALUES (205, 'MODELMNG', '型号管理', '/modelmng.htm?method=queryView', 200, '1', 5);
+INSERT INTO `AUTH_MENU` VALUES (206, 'CHKITEMMNG', '检查项管理', '/chkitemmng.htm?method=queryView', 200, '1', 6);
+INSERT INTO `AUTH_MENU` VALUES (207, 'MODELCHK', '品牌绑定检查项', '/modelchk.htm?method=queryView', 200, '1', 7);
+INSERT INTO `AUTH_MENU` VALUES (208, 'LOCATIONMNG', '位置管理', '/locationmng.htm?method=queryView', 200, '1', 8);
+INSERT INTO `AUTH_MENU` VALUES (209, 'DEVICEMNG', '设备管理', '/devicemng.htm?method=queryView', 200, '1', 9);
 
-INSERT INTO `AUTH_MENU` VALUES (101, 'REPAIRORDER', '报修单管理', '/repairorder.htm?method=list', 100, '1', 1);
-INSERT INTO `AUTH_MENU` VALUES (102, 'ROUTEORDER', '巡检单管理', '/routeorder.htm?method=list', 100, '1', 2);
-INSERT INTO `AUTH_MENU` VALUES (103, 'MAINTAINORDER', '维护单管理', '/maintainorder.htm?method=list', 100, '1', 3);
+INSERT INTO `AUTH_MENU` VALUES (101, 'REPAIRORDER', '报修单管理', '/repairorder.htm?method=queryView', 100, '1', 1);
+INSERT INTO `AUTH_MENU` VALUES (102, 'ROUTEORDER', '巡检单管理', '/routeorder.htm?method=queryView', 100, '1', 2);
+INSERT INTO `AUTH_MENU` VALUES (103, 'MAINTAINORDER', '维护单管理', '/maintainorder.htm?method=queryView', 100, '1', 3);
 
 
 -- ----------------------------

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+  <sqlMap namespace="info_model_chk_relation" >
+    <resultMap id="BaseResultMap" class="com.shecc.eoms.core.model.RelModelChkKey" >
+      <result column="CHK_ID" property="chkId" jdbcType="INTEGER" />
+      <result column="MODEL_ID" property="modelId" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="info_model_chk_relation.Example_Where_Clause" >
+      <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+        <isEqual property="oredCriteria[].valid" compareValue="true" >
+          (
+          <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithoutValue[]$ ]]>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value# ]]>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithListValue[].condition$ ]]>
+            <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+              <![CDATA[ #oredCriteria[].criteriaWithListValue[].values[]# ]]>
+            </iterate>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+            <![CDATA[
+            $oredCriteria[].criteriaWithBetweenValue[].condition$
+            #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+            #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+            ]]>
+          </iterate>
+          )
+        </isEqual>
+      </iterate>
+    </sql>
+    <sql id="info_model_chk_relation.mysql_Pagination_Limit" >
+      <dynamic >
+        <isNotEmpty property="mysqlOffset" >
+          <isNotEmpty property="mysqlLength" >
+            <![CDATA[ limit #mysqlOffset# , #mysqlLength# ]]>
+          </isNotEmpty>
+        </isNotEmpty>
+      </dynamic>
+    </sql>
+    <sql id="info_model_chk_relation.Base_Column_List" >
+      CHK_ID, MODEL_ID
+    </sql>
+    <select id="info_model_chk_relation.selectByExample" resultMap="BaseResultMap" parameterClass="com.shecc.eoms.core.model.RelModelChkCriteria" >
+      select
+      <isParameterPresent >
+        <isEqual property="distinct" compareValue="true" >
+          distinct
+        </isEqual>
+      </isParameterPresent>
+      <include refid="info_model_chk_relation.Base_Column_List" />
+      from info_model_chk_relation
+      <isParameterPresent >
+        <include refid="info_model_chk_relation.Example_Where_Clause" />
+        <isNotNull property="orderByClause" >
+          <![CDATA[ order by $orderByClause$ ]]>
+        </isNotNull>
+      </isParameterPresent>
+      <include refid="info_model_chk_relation.mysql_Pagination_Limit" />
+    </select>
+    <insert id="info_model_chk_relation.insert" parameterClass="com.shecc.eoms.core.model.RelModelChkKey" >
+      <![CDATA[
+      insert into info_model_chk_relation (CHK_ID, MODEL_ID)
+      values (#chkId#, #modelId#)
+      ]]>
+    </insert>
+    <insert id="info_model_chk_relation.insertSelective" parameterClass="com.shecc.eoms.core.model.RelModelChkKey" >
+      insert into info_model_chk_relation
+      <dynamic prepend="(" >
+        <isNotNull prepend="," property="chkId" >
+          CHK_ID
+        </isNotNull>
+        <isNotNull prepend="," property="modelId" >
+          MODEL_ID
+        </isNotNull>
+        )
+      </dynamic>
+      values
+      <dynamic prepend="(" >
+        <isNotNull prepend="," property="chkId" >
+          <![CDATA[ #chkId# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="modelId" >
+          <![CDATA[ #modelId# ]]>
+        </isNotNull>
+        )
+      </dynamic>
+    </insert>
+    <select id="info_model_chk_relation.countByExample" parameterClass="com.shecc.eoms.core.model.RelModelChkCriteria" resultClass="java.lang.Integer" >
+      select count(*) from info_model_chk_relation
+      <include refid="info_model_chk_relation.Example_Where_Clause" />
+    </select>
+    <update id="info_model_chk_relation.updateByExampleSelective" >
+      update info_model_chk_relation
+      <dynamic prepend="set" >
+        <isNotNull prepend="," property="record.chkId" >
+          <![CDATA[ CHK_ID = #record.chkId# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.modelId" >
+          <![CDATA[ MODEL_ID = #record.modelId# ]]>
+        </isNotNull>
+      </dynamic>
+      <isParameterPresent >
+        <include refid="info_model_chk_relation.Example_Where_Clause" />
+      </isParameterPresent>
+    </update>
+    <update id="info_model_chk_relation.updateByExample" >
+      <![CDATA[
+      update info_model_chk_relation
+      set CHK_ID = #record.chkId#,
+        MODEL_ID = #record.modelId#
+      ]]>
+      <isParameterPresent >
+        <include refid="info_model_chk_relation.Example_Where_Clause" />
+      </isParameterPresent>
+    </update>
+  </sqlMap>

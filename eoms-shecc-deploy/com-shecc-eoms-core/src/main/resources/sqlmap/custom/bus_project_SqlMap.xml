@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+  <sqlMap namespace="bus_project" >
+    <resultMap id="BaseResultMap" class="com.shecc.eoms.core.model.Project" >
+      <result column="ID" property="id" jdbcType="INTEGER" />
+      <result column="NAME" property="name" jdbcType="VARCHAR" />
+      <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+      <result column="LONGITUDE" property="longitude" jdbcType="INTEGER" />
+      <result column="LATITUDE" property="latitude" jdbcType="INTEGER" />
+      <result column="PICTURE" property="picture" jdbcType="VARCHAR" />
+      <result column="INPUT_UID" property="inputUid" jdbcType="INTEGER" />
+      <result column="INPUT_UNAME" property="inputUname" jdbcType="VARCHAR" />
+      <result column="INPUT_TIME" property="inputTime" jdbcType="TIMESTAMP" />
+      <result column="CHECK_UID" property="checkUid" jdbcType="INTEGER" />
+      <result column="CHECK_UNAME" property="checkUname" jdbcType="VARCHAR" />
+      <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+      <result column="LAST_MODIFY_UID" property="lastModifyUid" jdbcType="INTEGER" />
+      <result column="LAST_MODIFY_UNAME" property="lastModifyUname" jdbcType="VARCHAR" />
+      <result column="LAST_MODIFY_TIME" property="lastModifyTime" jdbcType="TIMESTAMP" />
+      <result column="ARCHIVE_FLAG" property="archiveFlag" jdbcType="CHAR" />
+      <result column="ARCHIVE_UID" property="archiveUid" jdbcType="INTEGER" />
+      <result column="ARCHIVE_UNAME" property="archiveUname" jdbcType="VARCHAR" />
+      <result column="ARCHIVE_TIME" property="archiveTime" jdbcType="TIMESTAMP" />
+      <result column="L_RECORD_NO" property="lRecordNo" jdbcType="INTEGER" />
+      <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+      <result column="RESV_FLD1" property="resvFld1" jdbcType="VARCHAR" />
+      <result column="RESV_FLD2" property="resvFld2" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="bus_project.Example_Where_Clause" >
+      <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
+        <isEqual property="oredCriteria[].valid" compareValue="true" >
+          (
+          <iterate prepend="and" property="oredCriteria[].criteriaWithoutValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithoutValue[]$ ]]>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithSingleValue[].condition$ #oredCriteria[].criteriaWithSingleValue[].value# ]]>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithListValue" conjunction="and" >
+            <![CDATA[ $oredCriteria[].criteriaWithListValue[].condition$ ]]>
+            <iterate property="oredCriteria[].criteriaWithListValue[].values" open="(" close=")" conjunction="," >
+              <![CDATA[ #oredCriteria[].criteriaWithListValue[].values[]# ]]>
+            </iterate>
+          </iterate>
+          <iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue" conjunction="and" >
+            <![CDATA[
+            $oredCriteria[].criteriaWithBetweenValue[].condition$
+            #oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+            #oredCriteria[].criteriaWithBetweenValue[].values[1]#
+            ]]>
+          </iterate>
+          )
+        </isEqual>
+      </iterate>
+    </sql>
+    <sql id="bus_project.mysql_Pagination_Limit" >
+      <dynamic >
+        <isNotEmpty property="mysqlOffset" >
+          <isNotEmpty property="mysqlLength" >
+            <![CDATA[ limit #mysqlOffset# , #mysqlLength# ]]>
+          </isNotEmpty>
+        </isNotEmpty>
+      </dynamic>
+    </sql>
+    <sql id="bus_project.Base_Column_List" >
+      ID, NAME, ADDRESS, LONGITUDE, LATITUDE, PICTURE, INPUT_UID, INPUT_UNAME, INPUT_TIME, 
+      CHECK_UID, CHECK_UNAME, CHECK_TIME, LAST_MODIFY_UID, LAST_MODIFY_UNAME, LAST_MODIFY_TIME, 
+      ARCHIVE_FLAG, ARCHIVE_UID, ARCHIVE_UNAME, ARCHIVE_TIME, L_RECORD_NO, REMARK, RESV_FLD1, 
+      RESV_FLD2
+    </sql>
+    <select id="bus_project.selectByExample" resultMap="BaseResultMap" parameterClass="com.shecc.eoms.core.model.ProjectCriteria" >
+      select
+      <isParameterPresent >
+        <isEqual property="distinct" compareValue="true" >
+          distinct
+        </isEqual>
+      </isParameterPresent>
+      <include refid="bus_project.Base_Column_List" />
+      from bus_project
+      <isParameterPresent >
+        <include refid="bus_project.Example_Where_Clause" />
+        <isNotNull property="orderByClause" >
+          <![CDATA[ order by $orderByClause$ ]]>
+        </isNotNull>
+      </isParameterPresent>
+      <include refid="bus_project.mysql_Pagination_Limit" />
+    </select>
+    <select id="bus_project.selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="com.shecc.eoms.core.model.Project" >
+      select 
+      <include refid="bus_project.Base_Column_List" />
+      <![CDATA[
+      from bus_project
+      where ID = #id#
+      ]]>
+    </select>
+    <insert id="bus_project.insert" parameterClass="com.shecc.eoms.core.model.Project" >
+      <![CDATA[
+      insert into bus_project (ID, NAME, ADDRESS, LONGITUDE, LATITUDE, PICTURE, INPUT_UID, 
+        INPUT_UNAME, INPUT_TIME, CHECK_UID, CHECK_UNAME, CHECK_TIME, LAST_MODIFY_UID, 
+        LAST_MODIFY_UNAME, LAST_MODIFY_TIME, ARCHIVE_FLAG, ARCHIVE_UID, ARCHIVE_UNAME, 
+        ARCHIVE_TIME, L_RECORD_NO, REMARK, RESV_FLD1, RESV_FLD2)
+      values (#id#, #name#, #address#, #longitude#, #latitude#, #picture#, #inputUid#, 
+        #inputUname#, #inputTime#, #checkUid#, #checkUname#, #checkTime#, #lastModifyUid#, 
+        #lastModifyUname#, #lastModifyTime#, #archiveFlag#, #archiveUid#, #archiveUname#, 
+        #archiveTime#, #lRecordNo#, #remark#, #resvFld1#, #resvFld2#)
+      ]]>
+    </insert>
+    <insert id="bus_project.insertSelective" parameterClass="com.shecc.eoms.core.model.Project" >
+      insert into bus_project
+      <dynamic prepend="(" >
+        <isNotNull prepend="," property="id" >
+          ID
+        </isNotNull>
+        <isNotNull prepend="," property="name" >
+          NAME
+        </isNotNull>
+        <isNotNull prepend="," property="address" >
+          ADDRESS
+        </isNotNull>
+        <isNotNull prepend="," property="longitude" >
+          LONGITUDE
+        </isNotNull>
+        <isNotNull prepend="," property="latitude" >
+          LATITUDE
+        </isNotNull>
+        <isNotNull prepend="," property="picture" >
+          PICTURE
+        </isNotNull>
+        <isNotNull prepend="," property="inputUid" >
+          INPUT_UID
+        </isNotNull>
+        <isNotNull prepend="," property="inputUname" >
+          INPUT_UNAME
+        </isNotNull>
+        <isNotNull prepend="," property="inputTime" >
+          INPUT_TIME
+        </isNotNull>
+        <isNotNull prepend="," property="checkUid" >
+          CHECK_UID
+        </isNotNull>
+        <isNotNull prepend="," property="checkUname" >
+          CHECK_UNAME
+        </isNotNull>
+        <isNotNull prepend="," property="checkTime" >
+          CHECK_TIME
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUid" >
+          LAST_MODIFY_UID
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUname" >
+          LAST_MODIFY_UNAME
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyTime" >
+          LAST_MODIFY_TIME
+        </isNotNull>
+        <isNotNull prepend="," property="archiveFlag" >
+          ARCHIVE_FLAG
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUid" >
+          ARCHIVE_UID
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUname" >
+          ARCHIVE_UNAME
+        </isNotNull>
+        <isNotNull prepend="," property="archiveTime" >
+          ARCHIVE_TIME
+        </isNotNull>
+        <isNotNull prepend="," property="lRecordNo" >
+          L_RECORD_NO
+        </isNotNull>
+        <isNotNull prepend="," property="remark" >
+          REMARK
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld1" >
+          RESV_FLD1
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld2" >
+          RESV_FLD2
+        </isNotNull>
+        )
+      </dynamic>
+      values
+      <dynamic prepend="(" >
+        <isNotNull prepend="," property="id" >
+          <![CDATA[ #id# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="name" >
+          <![CDATA[ #name# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="address" >
+          <![CDATA[ #address# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="longitude" >
+          <![CDATA[ #longitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="latitude" >
+          <![CDATA[ #latitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="picture" >
+          <![CDATA[ #picture# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputUid" >
+          <![CDATA[ #inputUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputUname" >
+          <![CDATA[ #inputUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputTime" >
+          <![CDATA[ #inputTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkUid" >
+          <![CDATA[ #checkUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkUname" >
+          <![CDATA[ #checkUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkTime" >
+          <![CDATA[ #checkTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUid" >
+          <![CDATA[ #lastModifyUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUname" >
+          <![CDATA[ #lastModifyUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyTime" >
+          <![CDATA[ #lastModifyTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveFlag" >
+          <![CDATA[ #archiveFlag# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUid" >
+          <![CDATA[ #archiveUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUname" >
+          <![CDATA[ #archiveUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveTime" >
+          <![CDATA[ #archiveTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lRecordNo" >
+          <![CDATA[ #lRecordNo# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="remark" >
+          <![CDATA[ #remark# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld1" >
+          <![CDATA[ #resvFld1# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld2" >
+          <![CDATA[ #resvFld2# ]]>
+        </isNotNull>
+        )
+      </dynamic>
+    </insert>
+    <select id="bus_project.countByExample" parameterClass="com.shecc.eoms.core.model.ProjectCriteria" resultClass="java.lang.Integer" >
+      select count(*) from bus_project
+      <include refid="bus_project.Example_Where_Clause" />
+    </select>
+    <update id="bus_project.updateByExampleSelective" >
+      update bus_project
+      <dynamic prepend="set" >
+        <isNotNull prepend="," property="record.id" >
+          <![CDATA[ ID = #record.id# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.name" >
+          <![CDATA[ NAME = #record.name# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.address" >
+          <![CDATA[ ADDRESS = #record.address# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.longitude" >
+          <![CDATA[ LONGITUDE = #record.longitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.latitude" >
+          <![CDATA[ LATITUDE = #record.latitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.picture" >
+          <![CDATA[ PICTURE = #record.picture# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.inputUid" >
+          <![CDATA[ INPUT_UID = #record.inputUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.inputUname" >
+          <![CDATA[ INPUT_UNAME = #record.inputUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.inputTime" >
+          <![CDATA[ INPUT_TIME = #record.inputTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.checkUid" >
+          <![CDATA[ CHECK_UID = #record.checkUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.checkUname" >
+          <![CDATA[ CHECK_UNAME = #record.checkUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.checkTime" >
+          <![CDATA[ CHECK_TIME = #record.checkTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.lastModifyUid" >
+          <![CDATA[ LAST_MODIFY_UID = #record.lastModifyUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.lastModifyUname" >
+          <![CDATA[ LAST_MODIFY_UNAME = #record.lastModifyUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.lastModifyTime" >
+          <![CDATA[ LAST_MODIFY_TIME = #record.lastModifyTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.archiveFlag" >
+          <![CDATA[ ARCHIVE_FLAG = #record.archiveFlag# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.archiveUid" >
+          <![CDATA[ ARCHIVE_UID = #record.archiveUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.archiveUname" >
+          <![CDATA[ ARCHIVE_UNAME = #record.archiveUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.archiveTime" >
+          <![CDATA[ ARCHIVE_TIME = #record.archiveTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.lRecordNo" >
+          <![CDATA[ L_RECORD_NO = #record.lRecordNo# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.remark" >
+          <![CDATA[ REMARK = #record.remark# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.resvFld1" >
+          <![CDATA[ RESV_FLD1 = #record.resvFld1# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="record.resvFld2" >
+          <![CDATA[ RESV_FLD2 = #record.resvFld2# ]]>
+        </isNotNull>
+      </dynamic>
+      <isParameterPresent >
+        <include refid="bus_project.Example_Where_Clause" />
+      </isParameterPresent>
+    </update>
+    <update id="bus_project.updateByExample" >
+      <![CDATA[
+      update bus_project
+      set ID = #record.id#,
+        NAME = #record.name#,
+        ADDRESS = #record.address#,
+        LONGITUDE = #record.longitude#,
+        LATITUDE = #record.latitude#,
+        PICTURE = #record.picture#,
+        INPUT_UID = #record.inputUid#,
+        INPUT_UNAME = #record.inputUname#,
+        INPUT_TIME = #record.inputTime#,
+        CHECK_UID = #record.checkUid#,
+        CHECK_UNAME = #record.checkUname#,
+        CHECK_TIME = #record.checkTime#,
+        LAST_MODIFY_UID = #record.lastModifyUid#,
+        LAST_MODIFY_UNAME = #record.lastModifyUname#,
+        LAST_MODIFY_TIME = #record.lastModifyTime#,
+        ARCHIVE_FLAG = #record.archiveFlag#,
+        ARCHIVE_UID = #record.archiveUid#,
+        ARCHIVE_UNAME = #record.archiveUname#,
+        ARCHIVE_TIME = #record.archiveTime#,
+        L_RECORD_NO = #record.lRecordNo#,
+        REMARK = #record.remark#,
+        RESV_FLD1 = #record.resvFld1#,
+        RESV_FLD2 = #record.resvFld2#
+      ]]>
+      <isParameterPresent >
+        <include refid="bus_project.Example_Where_Clause" />
+      </isParameterPresent>
+    </update>
+    <update id="bus_project.updateByPrimaryKeySelective" parameterClass="com.shecc.eoms.core.model.Project" >
+      update bus_project
+      <dynamic prepend="set" >
+        <isNotNull prepend="," property="name" >
+          <![CDATA[ NAME = #name# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="address" >
+          <![CDATA[ ADDRESS = #address# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="longitude" >
+          <![CDATA[ LONGITUDE = #longitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="latitude" >
+          <![CDATA[ LATITUDE = #latitude# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="picture" >
+          <![CDATA[ PICTURE = #picture# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputUid" >
+          <![CDATA[ INPUT_UID = #inputUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputUname" >
+          <![CDATA[ INPUT_UNAME = #inputUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="inputTime" >
+          <![CDATA[ INPUT_TIME = #inputTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkUid" >
+          <![CDATA[ CHECK_UID = #checkUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkUname" >
+          <![CDATA[ CHECK_UNAME = #checkUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="checkTime" >
+          <![CDATA[ CHECK_TIME = #checkTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUid" >
+          <![CDATA[ LAST_MODIFY_UID = #lastModifyUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyUname" >
+          <![CDATA[ LAST_MODIFY_UNAME = #lastModifyUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lastModifyTime" >
+          <![CDATA[ LAST_MODIFY_TIME = #lastModifyTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveFlag" >
+          <![CDATA[ ARCHIVE_FLAG = #archiveFlag# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUid" >
+          <![CDATA[ ARCHIVE_UID = #archiveUid# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveUname" >
+          <![CDATA[ ARCHIVE_UNAME = #archiveUname# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="archiveTime" >
+          <![CDATA[ ARCHIVE_TIME = #archiveTime# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="lRecordNo" >
+          <![CDATA[ L_RECORD_NO = #lRecordNo# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="remark" >
+          <![CDATA[ REMARK = #remark# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld1" >
+          <![CDATA[ RESV_FLD1 = #resvFld1# ]]>
+        </isNotNull>
+        <isNotNull prepend="," property="resvFld2" >
+          <![CDATA[ RESV_FLD2 = #resvFld2# ]]>
+        </isNotNull>
+      </dynamic>
+      <![CDATA[
+      where ID = #id#
+      ]]>
+    </update>
+    <update id="bus_project.updateByPrimaryKey" parameterClass="com.shecc.eoms.core.model.Project" >
+      <![CDATA[
+      update bus_project
+      set NAME = #name#,
+        ADDRESS = #address#,
+        LONGITUDE = #longitude#,
+        LATITUDE = #latitude#,
+        PICTURE = #picture#,
+        INPUT_UID = #inputUid#,
+        INPUT_UNAME = #inputUname#,
+        INPUT_TIME = #inputTime#,
+        CHECK_UID = #checkUid#,
+        CHECK_UNAME = #checkUname#,
+        CHECK_TIME = #checkTime#,
+        LAST_MODIFY_UID = #lastModifyUid#,
+        LAST_MODIFY_UNAME = #lastModifyUname#,
+        LAST_MODIFY_TIME = #lastModifyTime#,
+        ARCHIVE_FLAG = #archiveFlag#,
+        ARCHIVE_UID = #archiveUid#,
+        ARCHIVE_UNAME = #archiveUname#,
+        ARCHIVE_TIME = #archiveTime#,
+        L_RECORD_NO = #lRecordNo#,
+        REMARK = #remark#,
+        RESV_FLD1 = #resvFld1#,
+        RESV_FLD2 = #resvFld2#
+      where ID = #id#
+      ]]>
+    </update>
+  </sqlMap>

@@ -31,6 +31,11 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 				classpath:sqlmap/sqlmap-config.xml
 			</value>
 		</property>
+		<property name="mappingLocations">
+			<value>
+				classpath*:sqlmap/custom/**/*.xml
+			</value>
+		</property>
 		<property name="dataSource" ref="dbDs" />
 		<property name="lobHandler" ref="lobHandler" />
 	</bean>
