@@ -53,44 +53,10 @@ function showValidateMsg(content){
 	$("#showMsg").html(content);
 }
 
-function init(){
-	  var destAgentId = $("#destAgentIdHis").val();
-	
-	  $.ajax({  
-        type : 'post',  
-        url : '<@sp.contextPath/>/destAgentDefault.htm?method=dicDestAgent',  
-        dataType : 'json',  
-        success : function (xmlq) { 
-            if(xmlq.dataList){
-          	  $.each(xmlq.dataList, function(i, doc){ 
-          		var str = "";
-          		if(doc.agentId && destAgentId && doc.agentId == destAgentId){
-          			str ="<option value='"+doc.agentId+"' selected>"+doc.agentName+"</option>";
-          		}else{
-          			str ="<option value='"+doc.agentId+"'>"+doc.agentName+"</option>";
-          		}
-          	
-          		  
-          		  $("#destAgentId").append(str);
-          		 
-                }); 
-            }
-      	  
-
-
-        },  
-        error : function (xmlq, errq) {  
-            alert("系统错误");  
-        }  
-    });  
-}
-
 /**
 *	更新
 */
 $(function() {      
-	init();
-	
     $("#updatePost").bind("click", function() {    
         $.ajax({  
             type : 'post',  
@@ -139,12 +105,6 @@ $(function() {
 *	表单校验
 */
 function validateForm(){
-	var userName = $("#userName").val();
-	if(userName.length <= 0){
-		showValidateMsg("登陆名不能为空!");
-		unLockScreen();
-		return false;
-	}
 	var realName = $("#realName").val();
 	if(realName.length <= 0){
 		showValidateMsg("真实姓名不能为空!");
@@ -177,22 +137,6 @@ $(function() {
 			</div>
 			<table  class="table txtL">
 				<tbody>
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">登陆名<font color="red">*</font>:</td>
-						<td>
-							<input type="text" id="userName" name="userName" maxlength="60" value="${user.userName}" class="inp_normal w200">
-						</td>
-					</tr>
-					
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">对应代理人:</td>
-						<td>
-						    <input type="hidden" id="destAgentIdHis" name="destAgentIdHis" maxlength="60" value="${user.destAgentId?default('')}" class="inp_normal w200">
-							<select id="destAgentId" name="destAgentId" class="inp_normal w200">
-								<option value="">--请选择--</option>
-							</select>
-						</td>
-					</tr>
 					
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">真实姓名<font color="red">*</font>:</td>

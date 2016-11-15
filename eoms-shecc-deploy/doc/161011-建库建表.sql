@@ -104,6 +104,7 @@ create table AUTH_USER
    PHOTO                varchar(100) comment '照片',
    UP_UID               INT(10) comment '所属用户编号',
    UP_UNAME             VARCHAR(100) comment '所属用户姓名',
+   IDENTITY             CHAR(1) comment '身份。1-系统管理员；2-负责人；3-项目经理；4-分包商；5-工程师；6-客户。',
    REMARK               varchar(500) comment '备注',
    primary key (ID)
 )

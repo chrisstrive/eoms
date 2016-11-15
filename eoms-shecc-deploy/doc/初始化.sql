@@ -64,7 +64,7 @@ INSERT INTO `AUTH_ROLE_MENU` VALUES (21, 1, 103);
 -- ----------------------------
 -- RECORDS OF AUTH_USER
 -- ----------------------------
-INSERT INTO `AUTH_USER` VALUES ('1', 'ADMIN', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '13888888888', '系统管理员', 'chris@1413.COM', '0217584124', '/OPT/PHOTO/111.jpg', null,null,null);
+INSERT INTO `AUTH_USER` VALUES ('1', 'ADMIN', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '13888888888', '系统管理员', 'chris@1413.COM', '0217584124', '/OPT/PHOTO/111.jpg', null,null,'1',NULL);
 
 
 -- ----------------------------

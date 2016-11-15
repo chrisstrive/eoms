@@ -25,6 +25,7 @@ public class User implements Serializable {
 	private String photo;
 	private Integer upUid;
 	private String upUname;
+	private String identity;
 	private String remark;
 
 	public Integer getId() {
@@ -113,6 +114,14 @@ public class User implements Serializable {
 
 	public void setUpUname(String upUname) {
 		this.upUname = upUname;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
 	}
 
 	public String getRemark() {

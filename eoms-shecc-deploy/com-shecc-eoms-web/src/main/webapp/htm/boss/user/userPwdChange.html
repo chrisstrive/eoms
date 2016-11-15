@@ -98,8 +98,9 @@ function validateForm(){
 		return false;
 	}
 	var passWd = $("#passWd").val();
-	if(passWd.length <= 0){
-		showValidateMsg("新密码不能为空!");
+	var reg = /^\d{4}$/;
+	if(!(reg.test(passWd))){
+		showValidateMsg("密码必须为4位数字!");
 		unLockScreen();
 		return false;
 	}
@@ -146,13 +147,13 @@ $(function() {
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">原始密码<font color="red">*</font>:</td>
 						<td>
-							<input type="password" id="oldPwd" name="oldPwd" maxlength="60">&nbsp;(数字、大小写字母)
+							<input type="password" id="oldPwd" name="oldPwd" maxlength="60">&nbsp;(4位数字)
 						</td>
 					</tr>
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">新密码<font color="red">*</font>:</td>
 						<td>
-							<input type="password" id="passWd" name="passWd" maxlength="60">&nbsp;(数字、大小写字母)
+							<input type="password" id="passWd" name="passWd" maxlength="60">&nbsp;(4位数字)
 						</td>
 					</tr>
 					<tr class="trForContent1">

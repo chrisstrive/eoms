@@ -64,24 +64,22 @@ function validateForm(){
 		unLockScreen();
 		return false;
 	}
-	/**
-	if(!isNumberOr_Letter(userName)){
-		showValidateMsg("登陆名必须为数字字母下划线组成!");
-		unLockScreen();
-		return false;
-	}*/
+	
 	var realName = $("#realName").val();
 	if(realName.length <= 0){
 		showValidateMsg("真实姓名不能为空!");
 		unLockScreen();
 		return false;
 	}
+	
 	var passWd = $("#passWd").val();
-	if(passWd.length <= 0){
-		showValidateMsg("密码不能为空!");
+	var reg = /^\d{4}$/;
+	if(!(reg.test(passWd))){
+		showValidateMsg("密码必须为4位数字!");
 		unLockScreen();
 		return false;
 	}
+	
 	var passWdChk = $("#passWdChk").val();
 	if(passWdChk.length <= 0){
 		showValidateMsg("密码确认不能为空!");
@@ -93,7 +91,6 @@ function validateForm(){
 		unLockScreen();
 		return false;
 	}
-
 	
 	return true;
 }
@@ -102,8 +99,6 @@ function validateForm(){
 *	表单提交
 */
 $(function() {   
-	init();
-	
     $("#addPost").bind("click", function() {    
         $.ajax({  
             type : 'post',  
@@ -144,32 +139,6 @@ $(function() {
      });   
 }); 
 
-
-function init(){
-	  $.ajax({  
-          type : 'post',  
-          url : '<@sp.contextPath/>/destAgentDefault.htm?method=dicDestAgent',  
-          dataType : 'json',  
-          success : function (xmlq) { 
-              if(xmlq.dataList){
-            	  $.each(xmlq.dataList, function(i, doc){ 
-            		  
-            		  var str ="<option value='"+doc.agentId+"'>"+doc.agentName+"</option>";
-            		  
-            		  $("#destAgentId").append(str);
-            		 
-                  }); 
-              }
-        	  
-
- 
-          },  
-          error : function (xmlq, errq) {  
-              alert("系统错误");  
-          }  
-      });  
-}
-
 //返回跳转
 $(function() {      
     $("#backDefaultPage").bind("click", function() {   
@@ -177,9 +146,8 @@ $(function() {
 	    	location.href = url;
 	});
 });
-
-
 </script>
+
 <body>
 <form method="post" id="postForm" class="form"> 
 	<!--mod_box -->
@@ -206,22 +174,13 @@ $(function() {
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">用户密码<font color="red">*</font>:</td>
 						<td>
-							<input type="password" class="inp_normal w200" id="passWd" name="passWd" maxlength="60">&nbsp;(数字、大小写字母)
+							<input type="password" class="inp_normal w200" id="passWd" name="passWd" maxlength="60">&nbsp;(4位数字)
 						</td>
 					</tr>
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">密码确认<font color="red">*</font>:</td>
 						<td>
 							<input type="password" class="inp_normal w200" id="passWdChk" name="passWdChk" maxlength="60">
-						</td>
-					</tr>
-					
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">对应代理人:</td>
-						<td>
-							<select id="destAgentId" name="destAgentId" class="inp_normal w200">
-								<option value="">--请选择--</option>
-							</select>
 						</td>
 					</tr>
 					
@@ -240,10 +199,30 @@ $(function() {
 					<tr class="trForContent1">
 						<td class="txtR" width="20%">EMAIL:</td>
 						<td>
-							<input type="text" id="email" name="email" maxlength="13" class="inp_normal w200">
+							<input type="text" id="email" name="email" maxlength="100" class="inp_normal w200">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR" width="20%">照片:</td>
+						<td>
+							<input type="text" id="photo" name="photo" maxlength="100" class="inp_normal w200">
+						</td>
+					</tr>
+					<tr class="trForContent1">
+						<td class="txtR">身份<font color="red">*</font>:</td>
+						<td>
+						<select class="inp_normal w200" name="identity" id="identity">
+								<option value="1">系统管理员-</option>
+								<option value="2">负责人</option>
+								<option value="3">项目经理</option>
+								<option value="4">分包商</option>
+								<option value="5">工程师</option>
+								<option value="6">客户</option>
+						</select>
 						</td>
 					</tr>
 				</tbody>
+				<input type="hidden" id="photo" name="photo" />
 			</table>
 			<div class="txtC mt10">
 				<input class="btn btnA" id="addPost" type="button" value="添加"/>

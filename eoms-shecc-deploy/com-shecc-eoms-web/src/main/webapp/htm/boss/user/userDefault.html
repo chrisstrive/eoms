@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title></title>
+<title>用户列表</title>
 <link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/jquery/css/pagination.css"/>
 <link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css"/>
 <script src="<@sp.contextPath/>/static/jquery/plugins/jquery-1.2.6.pack.js" type="text/javascript"/>
@@ -123,7 +123,10 @@ function initData(pageindx){
                     		(data.realName == null ? "" : data.realName) + 
                     		"</td>" +
                     		"<td align='center'>" + 
-                    		(data.destAgentName == null ? "" : data.destAgentName) + 
+                    		formatStatus(data.status) + 
+                    		"</td>" +
+                    		"<td align='center'>" + 
+                    		formatIdentity(data.identity) + 
                     		"</td>" +
                     		"<td align='center'>" + 
                     		(data.mobileNo == null ? "" : data.mobileNo) + 
@@ -135,7 +138,7 @@ function initData(pageindx){
                     		(data.email == null ? "" : data.email) + 
                     		"</td>" +
                     		"<td align='center'>" + 
-                    		formatStatus(data.status) + 
+                    		(data.photo == null ? "" : data.photo) + 
                     		"</td>" +
                     		"<td align='center'>" +
                     		"<a href=\"javascript:edit('" + data.id + "')\">编辑</a>&nbsp;<a href=\"javascript:resetPwd('" + data.id + "')\">重置密码</a>&nbsp;" + 
@@ -167,6 +170,30 @@ function formatStatus(status){
 	}
 	if(status == "2"){
 		return "冻结";
+	}
+}
+
+function formatIdentity(identity){
+	if(identity == "1"){
+		return "系统管理员";
+	}
+	if(identity == "2"){
+		return "负责人";
+	}
+	if(identity == "3"){
+		return "项目经理";
+	}
+	if(identity == "4"){
+		return "分包商";
+	}
+	if(identity == "5"){
+		return "工程师";
+	}
+	if(identity == "6"){
+		return "客户";
+	}
+	else{
+		return "未知";
 	}
 }
 
@@ -392,11 +419,12 @@ function viewUserRole(){
 						<th width="15px"></th>
 						<th>登陆名</th>
 						<th>真实姓名</th>
-						<th>所属代理人</th>
+						<th>状态</th>
+						<th>身份</th>
 						<th>移动电话</th>
 						<th>固定电话</th>
 						<th>EMAIL</th>
-						<th>状态</th>
+						<th>照片</th>
 						<th>操作</th>
 					</tr>
 				</thead>

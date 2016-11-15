@@ -19,6 +19,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		)
 		values
@@ -33,6 +34,7 @@
 		#photo#,
 		#upUid#,
 		#upUname#,
+		#identity#,
 		#remark#
 		)
 	</insert>
@@ -50,6 +52,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		from AUTH_user
 		t
@@ -70,6 +73,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		from AUTH_user
 		t
@@ -88,6 +92,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		from AUTH_user t
 		where t.status = 1
@@ -119,6 +124,7 @@
 		<isNotNull property="photo">photo=#photo#,</isNotNull>
 		<isNotNull property="upUid">up_uid=#upUid#,</isNotNull>
 		<isNotNull property="upUname">up_uname=#upUname#,</isNotNull>
+		<isNotNull property="identity">identity=#identity#,</isNotNull>
 		<isNotNull property="remark">remark=#remark#,</isNotNull>
 		where t.id = #id#
 	</update>
@@ -136,6 +142,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		from AUTH_user t
 		where 1=1
@@ -169,6 +176,7 @@
 		photo,
 		up_uid,
 		up_uname,
+		identity,
 		remark
 		from AUTH_user t
 		where t.id = #id#
