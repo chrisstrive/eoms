@@ -22,6 +22,7 @@
       <result column="REMARK" property="remark" jdbcType="VARCHAR" />
       <result column="RESV_FLD1" property="resvFld1" jdbcType="VARCHAR" />
       <result column="RESV_FLD2" property="resvFld2" jdbcType="VARCHAR" />
+      <result column="F_NAME" property="fName" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="info_location.Example_Where_Clause" >
       <iterate property="oredCriteria" conjunction="or" prepend="where" removeFirstPrepend="iterate" >
@@ -62,7 +63,7 @@
     <sql id="info_location.Base_Column_List" >
       ID, NAME, UP_ID, INPUT_UID, INPUT_UNAME, INPUT_TIME, CHECK_UID, CHECK_UNAME, CHECK_TIME, 
       LAST_MODIFY_UID, LAST_MODIFY_UNAME, LAST_MODIFY_TIME, ARCHIVE_FLAG, ARCHIVE_UID, 
-      ARCHIVE_UNAME, ARCHIVE_TIME, L_RECORD_NO, REMARK, RESV_FLD1, RESV_FLD2
+      ARCHIVE_UNAME, ARCHIVE_TIME, L_RECORD_NO, REMARK, RESV_FLD1, RESV_FLD2,getParentList(id) F_NAME
     </sql>
     <select id="info_location.selectByExample" resultMap="BaseResultMap" parameterClass="com.shecc.eoms.core.model.LocationCriteria" >
       select
@@ -230,6 +231,9 @@
         </isNotNull>
         )
       </dynamic>
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+        SELECT LAST_INSERT_ID()
+      </selectKey>
     </insert>
     <select id="info_location.countByExample" parameterClass="com.shecc.eoms.core.model.LocationCriteria" resultClass="java.lang.Integer" >
       select count(*) from info_location

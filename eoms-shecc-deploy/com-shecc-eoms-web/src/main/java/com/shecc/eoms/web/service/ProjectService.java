@@ -36,5 +36,5 @@ public interface ProjectService {
 
 	public Project findById(Integer id);
 
-	public List<Project> queryAll();
+	public List<Project> queryAll(ProjectCriteria criteria);
 }

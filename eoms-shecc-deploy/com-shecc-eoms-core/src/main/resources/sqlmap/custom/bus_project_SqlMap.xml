@@ -252,6 +252,9 @@
         </isNotNull>
         )
       </dynamic>
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+        SELECT LAST_INSERT_ID()
+      </selectKey>
     </insert>
     <select id="bus_project.countByExample" parameterClass="com.shecc.eoms.core.model.ProjectCriteria" resultClass="java.lang.Integer" >
       select count(*) from bus_project

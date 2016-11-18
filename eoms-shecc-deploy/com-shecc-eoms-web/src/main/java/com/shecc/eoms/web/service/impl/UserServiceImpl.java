@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.shecc.eoms.web.common.utils.JSONUtil;
-import com.shecc.eoms.web.service.MenuService;
-import com.shecc.eoms.web.service.UserService;
 import com.shecc.eoms.core.common.Page;
 import com.shecc.eoms.core.dao.UserDAOImpl;
 import com.shecc.eoms.core.model.Menu;
 import com.shecc.eoms.core.model.User;
+import com.shecc.eoms.web.common.utils.JSONUtil;
+import com.shecc.eoms.web.service.MenuService;
+import com.shecc.eoms.web.service.UserService;
 
 /**
  *
@@ -137,6 +137,11 @@ public class UserServiceImpl implements UserService{
 		
     	}
 		return null;
+	}
+
+	@Override
+	public List<User> findAll(User user) {
+		return userDao.findByCriteria(user);
 	}
 
 }

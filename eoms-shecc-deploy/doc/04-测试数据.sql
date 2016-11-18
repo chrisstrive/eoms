@@ -1,4 +1,41 @@
--- BUS_PROJECT
+#插入人员测试数据,密码为1111.
+
+-- 负责人
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_leader1','b59c67bf196a4758191e42f76670ceba','1','测试负责人1','2');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_leader2','b59c67bf196a4758191e42f76670ceba','1','测试负责人2','2');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_leader3','b59c67bf196a4758191e42f76670ceba','1','测试负责人3','2');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_leader4','b59c67bf196a4758191e42f76670ceba','1','测试负责人4','2');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_leader5','b59c67bf196a4758191e42f76670ceba','1','测试负责人5','2');
+
+-- 项目经理
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_manager1','b59c67bf196a4758191e42f76670ceba','1','测试项目经理1','3');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_manager2','b59c67bf196a4758191e42f76670ceba','1','测试项目经理2','3');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_manager3','b59c67bf196a4758191e42f76670ceba','1','测试项目经理3','3');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_manager4','b59c67bf196a4758191e42f76670ceba','1','测试项目经理4','3');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_manager5','b59c67bf196a4758191e42f76670ceba','1','测试项目经理5','3');
+
+-- 分包商
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_contractor1','b59c67bf196a4758191e42f76670ceba','1','测试分包商1','4');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_contractor2','b59c67bf196a4758191e42f76670ceba','1','测试分包商2','4');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_contractor3','b59c67bf196a4758191e42f76670ceba','1','测试分包商3','4');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_contractor4','b59c67bf196a4758191e42f76670ceba','1','测试分包商4','4');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_contractor5','b59c67bf196a4758191e42f76670ceba','1','测试分包商5','4');
+
+-- 工程师
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_engineer1','b59c67bf196a4758191e42f76670ceba','1','测试工程师1','5');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_engineer2','b59c67bf196a4758191e42f76670ceba','1','测试工程师2','5');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_engineer3','b59c67bf196a4758191e42f76670ceba','1','测试工程师3','5');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_engineer4','b59c67bf196a4758191e42f76670ceba','1','测试工程师4','5');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_engineer5','b59c67bf196a4758191e42f76670ceba','1','测试工程师5','5');
+
+-- 客户
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_customer1','b59c67bf196a4758191e42f76670ceba','1','测试客户1','6');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_customer2','b59c67bf196a4758191e42f76670ceba','1','测试客户2','6');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_customer3','b59c67bf196a4758191e42f76670ceba','1','测试客户3','6');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_customer4','b59c67bf196a4758191e42f76670ceba','1','测试客户4','6');
+INSERT INTO `shecc`.`auth_user` (`USERNAME`,`PASSWD`,`STATUS`,`REALNAME`,`IDENTITY`) VALUES ('test_customer5','b59c67bf196a4758191e42f76670ceba','1','测试客户5','6');
+
+#项目测试数据
 INSERT INTO `shecc`.`bus_project` (`NAME`,`ADDRESS`,`LONGITUDE`,`LATITUDE`,`PICTURE`,`INPUT_UID`,`INPUT_UNAME`,`INPUT_TIME`,`CHECK_UID`,`CHECK_UNAME`,`CHECK_TIME`,`LAST_MODIFY_UID`,`LAST_MODIFY_UNAME`,`LAST_MODIFY_TIME`,`ARCHIVE_FLAG`)
 VALUES ('项目1','地址1',10,20,'/data/eoms/pic/project/20161103001',1,‘ADMIN’,now(),1,‘ADMIN’,now(),1,‘ADMIN’,now(),1);
 

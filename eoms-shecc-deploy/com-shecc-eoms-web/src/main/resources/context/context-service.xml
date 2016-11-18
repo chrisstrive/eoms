@@ -28,4 +28,25 @@
 	<bean id="projectService" class="com.shecc.eoms.web.service.impl.ProjectServiceImpl">
 		<property name="projectDao" ref="projectDao"></property>
 	</bean>
+	<bean id="locationService" class="com.shecc.eoms.web.service.impl.LocationServiceImpl">
+		<property name="entityDao" ref="locationDao"></property>
+	</bean>
+	<bean id="systemService" class="com.shecc.eoms.web.service.impl.SystemServiceImpl">
+		<property name="entityDao" ref="systemDao"></property>
+	</bean>
+	<bean id="brandService" class="com.shecc.eoms.web.service.impl.BrandServiceImpl">
+		<property name="entityDao" ref="brandDao"></property>
+	</bean>
+	<bean id="checkItemService" class="com.shecc.eoms.web.service.impl.CheckItemServiceImpl">
+		<property name="entityDao" ref="checkItemDao"></property>
+	</bean>
+	<bean id="deviceService" class="com.shecc.eoms.web.service.impl.DeviceServiceImpl">
+		<property name="entityDao" ref="deviceDao"></property>
+	</bean>
+	<bean id="modelService" class="com.shecc.eoms.web.service.impl.ModelServiceImpl">
+		<property name="entityDao" ref="modelDao"></property>
+	</bean>
+	<bean id="systemTypeService" class="com.shecc.eoms.web.service.impl.SystemTypeServiceImpl">
+		<property name="entityDao" ref="systemTypeDao"></property>
+	</bean>
 </beans>

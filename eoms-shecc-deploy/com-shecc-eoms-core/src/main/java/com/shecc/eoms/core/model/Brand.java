@@ -3,21 +3,26 @@ package com.shecc.eoms.core.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Location implements Serializable {
+public class Brand implements Serializable {
     /**
      * 编号
      */
     private Integer id;
 
     /**
-     * 位置名称
+     * 品牌名称
      */
     private String name;
 
     /**
-     * 上级位置编号
+     * 品牌LOGO
      */
-    private Integer upId;
+    private String logo;
+
+    /**
+     * 品牌介绍
+     */
+    private String introduce;
 
     /**
      * 录入人编号
@@ -98,16 +103,11 @@ public class Location implements Serializable {
      * 保留域1
      */
     private String resvFld1;
-    
+
     /**
      * 保留域2
      */
     private String resvFld2;
-    
-    /**
-     * 全名
-     */
-    private String fName;
 
     private static final long serialVersionUID = 1L;
 
@@ -126,31 +126,45 @@ public class Location implements Serializable {
     }
 
     /**
-     * <b>获取</b> 位置名称
+     * <b>获取</b> 品牌名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * <b>设置</b> 位置名称
+     * <b>设置</b> 品牌名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * <b>获取</b> 上级位置编号
+     * <b>获取</b> 品牌LOGO
      */
-    public Integer getUpId() {
-        return upId;
+    public String getLogo() {
+        return logo;
     }
 
     /**
-     * <b>设置</b> 上级位置编号
+     * <b>设置</b> 品牌LOGO
      */
-    public void setUpId(Integer upId) {
-        this.upId = upId;
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    /**
+     * <b>获取</b> 品牌介绍
+     */
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    /**
+     * <b>设置</b> 品牌介绍
+     */
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
     /**
@@ -390,12 +404,4 @@ public class Location implements Serializable {
     public void setResvFld2(String resvFld2) {
         this.resvFld2 = resvFld2;
     }
-
-	public String getfName() {
-		return fName;
-	}
-
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
 }

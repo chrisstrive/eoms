@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+		<!-- 定义映射 -->
+		<bean	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+			<property name="mappings">
+				<props>
+					<prop key="/projectmng.htm">projectController</prop>
+					<prop key="/locationmng.htm">locationController</prop>
+					<prop key="/systemmng.htm">systemController</prop>
+					<prop key="/brandmng.htm">brandController</prop>
+					<prop key="/chkitemmng.htm">checkItemController</prop>
+					<prop key="/modelmng.htm">modelController</prop>
+					<prop key="/systypemng.htm">systemTypeController</prop>
+				</props>
+			</property>
+		</bean>
+		
+		<bean id="parentController" abstract="true">
+			<property name="methodNameResolver"><ref bean="paramResolver" /></property>
+		</bean>
+
+		<bean id="projectController" class="com.shecc.eoms.web.controller.ProjectController" parent="parentController">
+			<property name="projectService"><ref bean="projectService" /></property>
+			<property name="listPage"><value>/boss/project/list</value></property>
+			<property name="addPage"><value>/boss/project/add</value></property>
+			<property name="updatePage"><value>/boss/project/update</value></property>
+		</bean>
+
+		<bean id="locationController" class="com.shecc.eoms.web.controller.LocationController" parent="parentController">
+			<property name="entityService"><ref bean="locationService" /></property>
+			<property name="listPage"><value>/boss/location/list</value></property>
+			<property name="addPage"><value>/boss/location/add</value></property>
+			<property name="updatePage"><value>/boss/location/update</value></property>
+		</bean>
+
+		<bean id="systemController" class="com.shecc.eoms.web.controller.SystemController" parent="parentController">
+			<property name="entityService"><ref bean="systemService" /></property>
+			<property name="projectService"><ref bean="projectService" /></property>
+			<property name="userService"><ref bean="ser-UserService" /></property>
+			<property name="listPage"><value>/boss/system/list</value></property>
+			<property name="addPage"><value>/boss/system/add</value></property>
+			<property name="updatePage"><value>/boss/system/update</value></property>
+		</bean>
+
+		<bean id="systemTypeController" class="com.shecc.eoms.web.controller.SystemTypeController" parent="parentController">
+			<property name="entityService"><ref bean="systemTypeService" /></property>
+			<property name="listPage"><value>/boss/systemType/list</value></property>
+			<property name="addPage"><value>/boss/systemType/add</value></property>
+			<property name="updatePage"><value>/boss/systemType/update</value></property>
+		</bean>
+
+		<bean id="modelController" class="com.shecc.eoms.web.controller.ModelController" parent="parentController">
+			<property name="entityService"><ref bean="modelService" /></property>
+			<property name="listPage"><value>/boss/model/list</value></property>
+			<property name="addPage"><value>/boss/model/add</value></property>
+			<property name="updatePage"><value>/boss/model/update</value></property>
+		</bean>
+
+		<bean id="deviceController" class="com.shecc.eoms.web.controller.DeviceController" parent="parentController">
+			<property name="entityService"><ref bean="deviceService" /></property>
+			<property name="listPage"><value>/boss/device/list</value></property>
+			<property name="addPage"><value>/boss/device/add</value></property>
+			<property name="updatePage"><value>/boss/device/update</value></property>
+		</bean>
+
+		<bean id="brandController" class="com.shecc.eoms.web.controller.BrandController" parent="parentController">
+			<property name="entityService"><ref bean="brandService" /></property>
+			<property name="listPage"><value>/boss/brand/list</value></property>
+			<property name="addPage"><value>/boss/brand/add</value></property>
+			<property name="updatePage"><value>/boss/brand/update</value></property>
+		</bean>
+
+		<bean id="checkItemController" class="com.shecc.eoms.web.controller.CheckItemController" parent="parentController">
+			<property name="entityService"><ref bean="checkItemService" /></property>
+			<property name="listPage"><value>/boss/checkItem/list</value></property>
+			<property name="addPage"><value>/boss/checkItem/add</value></property>
+			<property name="updatePage"><value>/boss/checkItem/update</value></property>
+		</bean>
+	</beans>

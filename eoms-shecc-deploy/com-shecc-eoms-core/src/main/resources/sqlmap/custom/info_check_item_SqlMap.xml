@@ -230,6 +230,9 @@
         </isNotNull>
         )
       </dynamic>
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+        SELECT LAST_INSERT_ID()
+      </selectKey>
     </insert>
     <select id="info_check_item.countByExample" parameterClass="com.shecc.eoms.core.model.CheckItemCriteria" resultClass="java.lang.Integer" >
       select count(*) from info_check_item

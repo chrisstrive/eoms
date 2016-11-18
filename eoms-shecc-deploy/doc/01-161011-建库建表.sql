@@ -296,7 +296,7 @@ create table INFO_BRAND
    ID                   int not null auto_increment comment '编号',
    NAME                 VARCHAR(100) comment '品牌名称',
    LOGO                 varchar(100) comment '品牌LOGO',
-   "DESC"               varchar(500) comment '品牌介绍',
+   INTRODUCE               varchar(500) comment '品牌介绍',
    INPUT_UID            int comment '录入人编号',
    INPUT_UNAME          VARCHAR(50) comment '录入人姓名',
    INPUT_TIME           DATETIME comment '录入时间',

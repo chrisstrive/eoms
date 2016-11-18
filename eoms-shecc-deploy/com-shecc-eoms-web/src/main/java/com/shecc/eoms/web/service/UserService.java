@@ -67,5 +67,17 @@ public interface UserService {
 	
 	public User findApproveUser(String approveType);
 	
+	/**
+	 * 
+	 * findAll:根据条件查找用户. <br/>
+	 * 注意此处SQLMAP只提供了status和identity两个条件，如果要用到其它条件，请自行添加
+	 *
+	 * @author chris
+	 * @param queryMap
+	 * @return
+	 * @since JDK 1.6
+	 */
+	public List<User> findAll(User user);
+	
 }
 

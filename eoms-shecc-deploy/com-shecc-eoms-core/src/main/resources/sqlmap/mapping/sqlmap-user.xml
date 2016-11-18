@@ -181,4 +181,26 @@
 		from AUTH_user t
 		where t.id = #id#
 	</select>
+	
+	<select id="selectByExample" resultClass="t-user" parameterClass="t-user">
+		select
+		t.id,
+		t.username,
+		t.realname,
+		t.passwd,
+		t.status,
+		t.mobileno,
+		t.phone,
+		t.email,
+		photo,
+		up_uid,
+		up_uname,
+		identity,
+		remark
+		from AUTH_user t
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" and " property="status">t.status = #status#</isNotEmpty>
+			<isNotEmpty prepend=" and " property="identity">t.identity = #identity#</isNotEmpty>
+		</dynamic>
+	</select>
 </sqlMap>

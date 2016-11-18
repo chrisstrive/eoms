@@ -110,10 +110,8 @@ public class ProjectServiceImpl implements ProjectService {
 	 * @see com.shecc.eoms.web.service.ProjectService#queryAll()
 	 */
 	@Override
-	public List<Project> queryAll() {
-
-		// TODO Auto-generated method stub
-		return null;
+	public List<Project> queryAll(ProjectCriteria criteria) {
+		return projectDao.findByCriteria(criteria);
 	}
 
 }
