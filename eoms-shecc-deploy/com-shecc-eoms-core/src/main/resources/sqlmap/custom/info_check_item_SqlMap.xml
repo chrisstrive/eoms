@@ -424,4 +424,12 @@
       where ID = #id#
       ]]>
     </update>
+    <select id="selectByModelId"  resultMap="BaseResultMap" parameterClass="java.util.Map" >
+    	select
+      	<include refid="info_check_item.Base_Column_List" />
+      	from info_check_item 
+      	where ARCHIVE_FLAG='1'
+      	<isNotEmpty prepend=" and " property="inModelId">id IN (SELECT MC.CHK_ID FROM INFO_MODEL_CHK_RELATION MC WHERE MC.MODEL_ID = #inModelId#)</isNotEmpty>
+      	<isNotEmpty prepend=" and " property="notInModelId">id  NOT IN (SELECT MC.CHK_ID FROM INFO_MODEL_CHK_RELATION MC WHERE MC.MODEL_ID = #notInModelId#)</isNotEmpty>
+    </select>
   </sqlMap>

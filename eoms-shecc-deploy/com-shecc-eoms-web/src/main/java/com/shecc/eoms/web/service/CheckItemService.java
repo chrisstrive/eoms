@@ -85,5 +85,28 @@ public interface CheckItemService {
 	 * @since JDK 1.6
 	 */
 	List<CheckItem> queryAll(CheckItemCriteria criteria);
+	
+	/**
+	 * 
+	 * queryByModelId:根据型号编号查询对应的检查项. <br/>
+	 *
+	 * @author chris
+	 * @param modelId	要查询的型号编号
+	 * @return	2个list的集合，第一个为属于此型号的检查项集合，第二个为不属于此型号的检查项集合。
+	 * @since JDK 1.6
+	 */
+	List<List<CheckItem>> queryByModelId(int modelId);
+
+	/**
+	 * 
+	 * addRelModelChkRnTx:关联型号对应的检查项. <br/>
+	 * 先删除已绑定的关联，然后新建关联.<br/>
+	 *
+	 * @author chris
+	 * @param checkItemIds
+	 * @param modelId
+	 * @since JDK 1.6
+	 */
+	void addRelModelChkRnTx(String[] checkItemIds, Integer modelId);
 }
 

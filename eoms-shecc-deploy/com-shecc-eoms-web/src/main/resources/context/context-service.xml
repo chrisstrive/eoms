@@ -39,6 +39,7 @@
 	</bean>
 	<bean id="checkItemService" class="com.shecc.eoms.web.service.impl.CheckItemServiceImpl">
 		<property name="entityDao" ref="checkItemDao"></property>
+		<property name="relModelChkKeyDao" ref="relModelChkDao"></property>
 	</bean>
 	<bean id="deviceService" class="com.shecc.eoms.web.service.impl.DeviceServiceImpl">
 		<property name="entityDao" ref="deviceDao"></property>

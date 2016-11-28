@@ -111,7 +111,7 @@
 		   AUTH_MENU M,
 		   AUTH_role_menu rm
 		WHERE
-		   rm.AUTH_MENU_id = M.ID
+		   rm.T_MENU_ID = M.ID
 		   AND rm.t_role_id = #roleId# order by m.orderrum
 	</select>
 

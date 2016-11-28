@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>型号关联检查项管理</title>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/jquery/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/jquery/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/easyloader.js"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/home.css" />
+
+</head>
+<script>
+/**
+*	表单提交
+*/
+$(function() {      
+    $("#addPost").bind("click", function() {    
+         $("#select2 option").attr("selected","selected");
+    
+        $.ajax({  
+            type : 'post',  
+            url : '<@sp.contextPath/>/chkitemmng.htm?method=addRelCheckItem',  
+            dataType : 'json',  
+            data : $('#postForm').serialize(),  
+            beforeSend:function(){
+            },//发送数据之前
+            complete:function(){
+            },//接收数据完毕
+            success : function (xmlq) {  
+            	var returnCode = xmlq.returnCode;
+            	var description = xmlq.description;
+            	if(returnCode == "0000"){
+            		alert("添加成功");
+            	}else{
+            		alert(description);
+            	}
+            },  
+            error : function (xmlq, errq) {  
+                alert("系统错误");  
+            }  
+        });  
+     });   
+}); 
+</script>
+
+
+<body>
+<form method="post" id="postForm" class="form">
+<div class="mod_box">
+<h3 class="head">型号关联检查项管理</h3>
+<div class="body">
+<table  class="table txtL">
+<tbody>
+	<tr class="trForContent1">
+		<tr class="trForContent1">
+			<td colSpan="3" align="center">
+				<b>${model.name}</b>
+			</td>
+		</tr>
+		<tr>
+		<td class="txtR">
+		<select class="inp_normal w200" id="select1" size="15" multiple="true">
+			<#list notRelCheckItem as checkItem>
+				<option value="${checkItem.id}">${checkItem.name}</option>
+			</#list>
+		</select>
+		</td>
+		<td class="txtR" width="30px" align="center" valign="middle">
+		  <input type="button" id="add" value="&nbsp;&nbsp;>&nbsp;&nbsp;"/>
+          <br /><br />
+          <input type="button" id="add_all" value="&nbsp;>>&nbsp;"/>
+          <br /><br />
+          <input type="button" id="remove" value="&nbsp;&nbsp;<&nbsp;&nbsp;"/>
+          <br /><br />
+          <input type="button" id="remove_all" value="&nbsp;<<&nbsp;"/>
+		</td>
+		<td align="left">
+		<select class="inp_normal w200" id="select2" size="15" name="checkItemIds" multiple="true">
+			<#list relCheckItem as checkItem>
+				<option value="${checkItem.id}">${checkItem.name}</option>
+			</#list>
+		</select>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+//下拉框交换JQuery
+$(function(){
+    //移到右边
+    $('#add').click(function() {
+    //获取选中的选项，删除并追加给对方
+        $('#select1 option:selected').appendTo('#select2');
+        $("#select2 option").attr("selected","selected");
+    });
+    //移到左边
+    $('#remove').click(function() {
+        $('#select2 option:selected').appendTo('#select1');
+        $("#select2 option").attr("selected","selected");
+    });
+    //全部移到右边
+    $('#add_all').click(function() {
+        //获取全部的选项,删除并追加给对方
+        $('#select1 option').appendTo('#select2');
+        $("#select2 option").attr("selected","selected");
+    });
+    //全部移到左边
+    $('#remove_all').click(function() {
+        $('#select2 option').appendTo('#select1');
+        $("#select2 option").attr("selected","selected");
+    });
+    //双击选项
+    $('#select1').dblclick(function(){ //绑定双击事件
+        //获取全部的选项,删除并追加给对方
+        $("option:selected",this).appendTo('#select2'); //追加给对方
+        $("#select2 option").attr("selected","selected");
+    });
+    //双击选项
+    $('#select2').dblclick(function(){
+       $("option:selected",this).appendTo('#select1');
+       $("#select2 option").attr("selected","selected");
+    });
+});
+
+</script>
+</div>
+<div class="txtC mt10">
+	<input type="hidden" name="modeId" value="${model.id}"/>
+	<input class="btn btnA" id="addPost" type="button" value="添加检查项"/>
+	<input class="btn btnA" type="button" id="backDefaultPage" onclick="javascript:history.back();" value="返回" />
+</div>
+</div>
+</form>
+</body>
+
+</html>

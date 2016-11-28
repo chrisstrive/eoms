@@ -32,6 +32,18 @@ public interface IBaseDAO<T> {
 	
 	/**
 	 * 
+	 * batchCreate:批量插入. <br/>
+	 * 返回插入的条数.<br/>
+	 *
+	 * @author chris
+	 * @param pojoList
+	 * @return
+	 * @since JDK 1.6
+	 */
+	int batchCreate(List<T> pojoList);
+	
+	/**
+	 * 
 	 * 执行sql语句，执行存储
 	 * @param pojoList
 	 * @return

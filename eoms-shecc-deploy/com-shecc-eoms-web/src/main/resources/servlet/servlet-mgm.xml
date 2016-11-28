@@ -54,6 +54,7 @@
 
 		<bean id="modelController" class="com.shecc.eoms.web.controller.ModelController" parent="parentController">
 			<property name="entityService"><ref bean="modelService" /></property>
+			<property name="brandService"><ref bean="brandService" /></property>
 			<property name="listPage"><value>/boss/model/list</value></property>
 			<property name="addPage"><value>/boss/model/add</value></property>
 			<property name="updatePage"><value>/boss/model/update</value></property>
@@ -75,8 +76,10 @@
 
 		<bean id="checkItemController" class="com.shecc.eoms.web.controller.CheckItemController" parent="parentController">
 			<property name="entityService"><ref bean="checkItemService" /></property>
+			<property name="modelService"><ref bean="modelService" /></property>
 			<property name="listPage"><value>/boss/checkItem/list</value></property>
 			<property name="addPage"><value>/boss/checkItem/add</value></property>
 			<property name="updatePage"><value>/boss/checkItem/update</value></property>
+			<property name="relCheckItemPage"><value>/boss/checkItem/relCheckItem</value></property>
 		</bean>
 	</beans>

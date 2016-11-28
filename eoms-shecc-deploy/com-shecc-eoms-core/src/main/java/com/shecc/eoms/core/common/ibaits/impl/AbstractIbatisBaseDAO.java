@@ -1,4 +1,5 @@
 package com.shecc.eoms.core.common.ibaits.impl;
+
 /**
  * 
  * 
@@ -33,7 +34,7 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		return getSqlMapClientTemplate().insert(
 				namespace.concat("insertSelective"), pojo);
 	}
-	
+
 	@Override
 	public void create(Object pojo, String sqlId) {
 		getSqlMapClientTemplate().insert(namespace.concat(sqlId), pojo);
@@ -43,13 +44,13 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 	public boolean delete(Object id) {
 		return getSqlMapClientTemplate().delete(namespace.concat("delete"), id) == 1;
 	}
-	
+
 	@Override
 	public boolean deleteByCriteria(Object criteria) {
-		return getSqlMapClientTemplate().delete(namespace.concat("deleteByExample"), criteria) !=0;
+		return getSqlMapClientTemplate().delete(
+				namespace.concat("deleteByExample"), criteria) != 0;
 	}
 
-	
 	@Override
 	public boolean update(T pojo) {
 		return getSqlMapClientTemplate().update(
@@ -79,32 +80,31 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		return (List<T>) getSqlMapClientTemplate().queryForList(
 				namespace.concat("selectByExample"), criteria);
 	}
-	
+
 	@Override
 	public List<T> findByCriteriaWithLobs(Object criteria) {
 		return (List<T>) getSqlMapClientTemplate().queryForList(
 				namespace.concat("selectByExampleWithBLOBs"), criteria);
 	}
-	
-	
+
 	@Override
 	public List<T> findByCriteriaName() {
 		return (List<T>) getSqlMapClientTemplate().queryForList(
 				namespace.concat("selectCityModel"));
 	}
-	
+
 	@Override
 	public List<T> findByCriteriaAreaCity(Object currentCode) {
 		return (List<T>) getSqlMapClientTemplate().queryForList(
-				namespace.concat("selectAreaCityModel"),currentCode);
+				namespace.concat("selectAreaCityModel"), currentCode);
 	}
-	
+
 	@Override
 	public T findObjectByCriteria(Object criteria) {
 		return (T) getSqlMapClientTemplate().queryForObject(
 				namespace.concat("selectByExample"), criteria);
 	}
-	
+
 	@Override
 	public T findObjectByCriteriaWithLobs(Object criteria) {
 		return (T) getSqlMapClientTemplate().queryForObject(
@@ -123,7 +123,23 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		return getSqlMapClientTemplate().queryForList(
 				namespace.concat("selectByExample"), criteria, offset, size);
 	}
-	
+
+	@Override
+	public int batchCreate(List<T> pojoList) {
+		int result = 0;
+		try {
+			getSqlMapClient().startBatch();
+			for (Object record : pojoList) {
+				getSqlMapClient().insert(namespace.concat("insertSelective"),
+						record);
+			}
+			result = getSqlMapClient().executeBatch();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
 	@Override
 	public void batchCreate(List<Object> pojoList, String sqlId) {
 		try {
@@ -135,10 +151,9 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
-		
+
 	}
-	
+
 	@Override
 	public void batchUpdate(List<Object> pojoList, String sqlId) {
 		try {
@@ -150,16 +165,13 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
-		
+
 	}
-	
+
 	@Override
 	public boolean update(Object param, String sqlId) {
-		return getSqlMapClientTemplate().update(namespace.concat(sqlId), param)==1;
+		return getSqlMapClientTemplate().update(namespace.concat(sqlId), param) == 1;
 	}
-
-
 
 	@Override
 	public int countByCriteriaMap(Map<String, Object> criteria, String sqlId) {
@@ -193,30 +205,29 @@ public abstract class AbstractIbatisBaseDAO<T> extends SqlMapClientDaoSupport
 		int size = page.getPageSize();
 		int offset = page.currentRecordIndex();
 
-		int total = countByCriteriaMap(criteria,"count_".concat(sqlId));
+		int total = countByCriteriaMap(criteria, "count_".concat(sqlId));
 		page.setTotalRecord(total);
 		return getSqlMapClientTemplate().queryForList(namespace.concat(sqlId),
 				criteria, offset, size);
 	}
-	
+
 	@Override
-	public List<T> findByCriteriaMapReturnObj(
-			Map<String, Object> criteria, Page page, String sqlId) {
+	public List<T> findByCriteriaMapReturnObj(Map<String, Object> criteria,
+			Page page, String sqlId) {
 		int size = page.getPageSize();
 		int offset = page.currentRecordIndex();
 
-		int total = countByCriteriaMap(criteria,"count_".concat(sqlId));
+		int total = countByCriteriaMap(criteria, "count_".concat(sqlId));
 		page.setTotalRecord(total);
 		return getSqlMapClientTemplate().queryForList(namespace.concat(sqlId),
 				criteria, offset, size);
 	}
-	
+
 	@Override
 	public List<T> findByCriteriaAndSqlId(Object criteria, String sqlId) {
-		return getSqlMapClientTemplate()
-				.queryForList(namespace.concat(sqlId), criteria);
+		return getSqlMapClientTemplate().queryForList(namespace.concat(sqlId),
+				criteria);
 	}
-
 
 	public String getNamespace() {
 		return namespace;

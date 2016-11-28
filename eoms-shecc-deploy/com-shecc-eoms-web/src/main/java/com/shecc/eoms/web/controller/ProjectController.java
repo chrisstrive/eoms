@@ -266,8 +266,8 @@ public class ProjectController extends BaseController {
 			pw.write(result);
 			pw.flush();
 		}catch(Exception ex){
-			logger.error("修改堆场信息失败!!!r",ex);	
-			super.out(response, "0099", "修改堆场信息失败");
+			logger.error("修改项目信息失败!!!r",ex);	
+			super.out(response, "0099", "修改项目信息失败");
 		}
 		return null;
 	}

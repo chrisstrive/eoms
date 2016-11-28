@@ -299,7 +299,7 @@ public class CheckItemCriteria {
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("NAME like", value, "name");
+            addCriterion("NAME like", "%"+value+"%", "name");
             return (Criteria) this;
         }
 

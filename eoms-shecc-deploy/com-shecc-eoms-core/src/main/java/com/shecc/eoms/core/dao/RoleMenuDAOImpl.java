@@ -31,29 +31,6 @@ public class RoleMenuDAOImpl extends DefaultBaseDAOImpl<RoleMenu>{
 		
 	}
 	
-	public void batchCreate(final List <RoleMenu> list) {
-			
-		    this.getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
-		        public Object doInSqlMapClient(SqlMapExecutor executor)
-		                throws SQLException {
-		            executor.startBatch();
-		            // 每次提交最大条数
-		            final int batchSize = 200;
-		            int count = 0;
-		            for (RoleMenu roleMenu:list) {
-		                executor.insert("ns-roleMenu.insertSelective", roleMenu);
-		                if (++count % batchSize == 0) {
-		                    executor.executeBatch();
-		                }
-		            }
-		            // 提交剩余的数据
-		            executor.executeBatch();
-		            return null;
-		        }
-		    });
-	}
-
-	
 	public void batchDel(final List<RoleMenu>list) {
 		
 	    this.getSqlMapClientTemplate().execute(new SqlMapClientCallback() {

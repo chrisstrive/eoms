@@ -3,10 +3,10 @@
 
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title></title>
+<title>新增项目</title>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
 <script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
 <script src="<@sp.contextPath/>/static/jquery/plugins/jquery.form.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
 <script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
 <script language="javascript" type="text/javascript" src="<@sp.contextPath/>/static/boss/js/fckeditor/fckeditor.js"></script>
 <script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/uploadify/jquery.uploadify-3.1.min.js"></script>
@@ -21,14 +21,6 @@
 <link rel="stylesheet"
 	href="<@sp.contextPath/>/static/boss/ztree/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/boss/ztree/js/jquery-1.4.4.min.js"></script>
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.excheck-3.5.js"></script>
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/boss/ztree/js/jquery.ztree.exedit-3.5.js"></script>
 
 </head>
 <script type="text/javascript">
@@ -58,38 +50,36 @@ function showValidateMsg(content){
 *	表单校验
 */
 function validateForm(){
-	var userName = $("#userName").val();
-	if(userName.length <= 0){
-		showValidateMsg("登陆名不能为空!");
+	var projectName = $("#name").val();
+	if(projectName.length <= 0){
+		showValidateMsg("项目名称不能为空!");
+		unLockScreen();
+		return false;
+	}
+
+	var address = $("#address").val();
+	if(address.length <= 0){
+		showValidateMsg("项目地址不能为空!");
 		unLockScreen();
 		return false;
 	}
 	
-	var realName = $("#realName").val();
-	if(realName.length <= 0){
-		showValidateMsg("真实姓名不能为空!");
-		unLockScreen();
-		return false;
+    var longitude = $("#longitude").val();
+	if(longitude){
+		if(isNaN(longitude)){
+			showValidateMsg("经度必须为数字!");
+			unLockScreen();
+			return false;
+		}
 	}
 	
-	var passWd = $("#passWd").val();
-	var reg = /^\d{4}$/;
-	if(!(reg.test(passWd))){
-		showValidateMsg("密码必须为4位数字!");
-		unLockScreen();
-		return false;
-	}
-	
-	var passWdChk = $("#passWdChk").val();
-	if(passWdChk.length <= 0){
-		showValidateMsg("密码确认不能为空!");
-		unLockScreen();
-		return false;
-	}
-	if(passWd != passWdChk){
-		showValidateMsg("两次密码输入不一致!");
-		unLockScreen();
-		return false;
+	var latitude = $("#latitude").val();
+	if(latitude){
+		if(isNaN(latitude)){
+			showValidateMsg("纬度必须为数字!");
+			unLockScreen();
+			return false;
+		}
 	}
 	
 	return true;
@@ -98,11 +88,11 @@ function validateForm(){
 /**
 *	表单提交
 */
-$(function() {   
+$(function() {      
     $("#addPost").bind("click", function() {    
         $.ajax({  
             type : 'post',  
-            url : '<@sp.contextPath/>/userdefault.htm?method=createUser',  
+            url : '<@sp.contextPath/>/projectmng.htm?method=add',  
             dataType : 'json',  
             data : $('#postForm').serialize(),  
             beforeSend:function(){
@@ -125,9 +115,8 @@ $(function() {
             	var returnCode = xmlq.returnCode;
             	var description = xmlq.description;
             	if(returnCode == "0000"){
-            		alert("新增加成功");
-            		var url = "<@sp.contextPath/>/userdefault.htm?method=userDefault";
-            		location.href = url;
+            		alert("新增成功");
+            		closeWin();
             	}else{
             		alert(description);
             	}
@@ -139,20 +128,29 @@ $(function() {
      });   
 }); 
 
+
+function closeWin(){
+	if(window.opener){
+		window.opener.initData(0);
+	}	
+	window.close();
+}
+
 //返回跳转
 $(function() {      
     $("#backDefaultPage").bind("click", function() {   
-	    	var url = "<@sp.contextPath/>/userdefault.htm?method=userDefault";
-	    	location.href = url;
+	    closeWin();
 	});
+    
 });
-</script>
 
+
+</script>
 <body>
 <form method="post" id="postForm" class="form"> 
 	<!--mod_box -->
 	<div class="mod_box">
-		<h3 class="head">创建用户</h3>
+		<h3 class="head">新增项目信息</h3>
 		<div class="body">
 			<div id="showMsgDiv" class="tips_err" style="display:none">
 					<span class="onError" id="showMsg"></span>
@@ -160,69 +158,36 @@ $(function() {
 			<table  class="table txtL">
 				<tbody>
 					<tr class="trForContent1">
-						<td class="txtR" width="20%">登陆名<font color="red">*</font>:</td>
+						<td class="txtR" width="20%">项目名称<font color="red">*</font>:</td>
 						<td>
-							<input type="text" class="inp_normal w200" id="userName" name="userName" maxlength="60">
+							<input type="text" class="inp_normal w200" id="name" name="name" maxlength="50" />
 						</td>
 					</tr>
 					<tr class="trForContent1">
-						<td class="txtR" width="20%">真实姓名<font color="red">*</font>:</td>
+						<td class="txtR" width="20%">项目地址<font color="red">*</font>:</td>
 						<td>
-							<input type="text" class="inp_normal w200" id="realName" name="realName" maxlength="60">
+							<input type="text" class="inp_normal w200" id="address" name="address" maxlength="100" />
 						</td>
 					</tr>
 					<tr class="trForContent1">
-						<td class="txtR" width="20%">用户密码<font color="red">*</font>:</td>
+						<td class="txtR" width="20%">经度:</td>
 						<td>
-							<input type="password" class="inp_normal w200" id="passWd" name="passWd" maxlength="60">&nbsp;(4位数字)
+							<input type="text" class="inp_normal w200" id="longitude" name="longitude" maxlength="3" />
 						</td>
 					</tr>
 					<tr class="trForContent1">
-						<td class="txtR" width="20%">密码确认<font color="red">*</font>:</td>
+						<td class="txtR" width="20%">纬度:</td>
 						<td>
-							<input type="password" class="inp_normal w200" id="passWdChk" name="passWdChk" maxlength="60">
-						</td>
-					</tr>
-					
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">移动电话:</td>
-						<td>
-							<input type="text" id="mobileNo" name="mobileNo" maxlength="11" class="inp_normal w200">
+							<input type="text" class="inp_normal w200" id="latitude" name="latitude" maxlength="3" />
 						</td>
 					</tr>
 					<tr class="trForContent1">
-						<td class="txtR" width="20%">固定电话:</td>
+						<td class="txtR" width="20%">图片:</td>
 						<td>
-							<input type="text" id="phone" name="phone" maxlength="15" class="inp_normal w200">
-						</td>
-					</tr>
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">EMAIL:</td>
-						<td>
-							<input type="text" id="email" name="email" maxlength="100" class="inp_normal w200">
-						</td>
-					</tr>
-					<tr class="trForContent1">
-						<td class="txtR" width="20%">照片:</td>
-						<td>
-							<input type="text" id="photo" name="photo" maxlength="100" class="inp_normal w200">
-						</td>
-					</tr>
-					<tr class="trForContent1">
-						<td class="txtR">身份<font color="red">*</font>:</td>
-						<td>
-						<select class="inp_normal w200" name="identity" id="identity">
-								<option value="1">系统管理员</option>
-								<option value="2">负责人</option>
-								<option value="3">项目经理</option>
-								<option value="4">分包商</option>
-								<option value="5">工程师</option>
-								<option value="6">客户</option>
-						</select>
+							<input type="text" class="inp_normal w200" id="picture" name="picture" maxlength="60" />
 						</td>
 					</tr>
 				</tbody>
-				<input type="hidden" id="photo" name="photo" />
 			</table>
 			<div class="txtC mt10">
 				<input class="btn btnA" id="addPost" type="button" value="添加"/>
@@ -231,9 +196,6 @@ $(function() {
 		</div>
 	</div>
 	
-	<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-		<ul id="treeDemo" class="ztree" style="margin-top:0; width:250px; height: 300px;"></ul>
-	</div>
 	<!--/mod_box --> 
 </form>
 <div class="popup" id="popupDiv">  
@@ -242,7 +204,4 @@ $(function() {
 </div> 
 </body>
 
-<SCRIPT type="text/javascript">
-
-</SCRIPT>
 </html>
