@@ -20,7 +20,6 @@ INSERT INTO `AUTH_MENU` VALUES (203, 'SYSTYPEMNG', '系统类型管理', '/systy
 INSERT INTO `AUTH_MENU` VALUES (204, 'BRANDMNG', '品牌管理', '/brandmng.htm?method=queryView', 200, '1', 4);
 INSERT INTO `AUTH_MENU` VALUES (205, 'MODELMNG', '型号管理', '/modelmng.htm?method=queryView', 200, '1', 5);
 INSERT INTO `AUTH_MENU` VALUES (206, 'CHKITEMMNG', '检查项管理', '/chkitemmng.htm?method=queryView', 200, '1', 6);
-INSERT INTO `AUTH_MENU` VALUES (207, 'MODELCHK', '品牌绑定检查项', '/modelchk.htm?method=queryView', 200, '1', 7);
 INSERT INTO `AUTH_MENU` VALUES (208, 'LOCATIONMNG', '位置管理', '/locationmng.htm?method=queryView', 200, '1', 8);
 INSERT INTO `AUTH_MENU` VALUES (209, 'DEVICEMNG', '设备管理', '/devicemng.htm?method=queryView', 200, '1', 9);
 

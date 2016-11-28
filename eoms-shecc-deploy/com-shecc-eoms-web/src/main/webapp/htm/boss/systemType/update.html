@@ -1,163 +1,111 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title></title>
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
-<script src="<@sp.contextPath/>/static/jquery/plugins/jquery.form.js"
-	type="text/javascript"></script>
-<link rel="stylesheet" type="text/css"
-	href="<@sp.contextPath/>/static/boss/css/poss.css">
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
-	<script language="javascript" type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/fckeditor/fckeditor.js"></script>
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/uploadify/jquery.uploadify-3.1.min.js"></script>
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/uploadify/uploadfile.js"></script>
-	<script src="<@sp.contextPath/>/static/boss/js/validate.js"
-		type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css"
-		href="<@sp.contextPath/>/static/boss/js/uploadify/uploadify.css" />
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/validate.js"></script>
-
-	<link rel="stylesheet"
-		href="<@sp.contextPath/>/static/boss/ztree/css/demo.css"
-		type="text/css">
-		<link rel="stylesheet"
-			href="<@sp.contextPath/>/static/boss/ztree/css/zTreeStyle/zTreeStyle.css"
-			type="text/css">
-			<script type="text/javascript"
-				src="<@sp.contextPath/>/static/boss/ztree/js/jquery-1.4.4.min.js"></script>
-</head>
-<script type="text/javascript">
-	/**
-	 *	锁屏
-	 */
-	function lockScreen() {
-		$("#popupDiv").show();
-	}
-
-	/**
-	 *	解锁
-	 */
-	function unLockScreen() {
-		$("#popupDiv").hide();
-	}
-
-	/**
-	 *	显示验证信息
-	 */
-	function showValidateMsg(content) {
-		$("#showMsgDiv").show();
-		$("#showMsg").html(content);
-	}
-
-	/**
-	 *	表单校验
-	 */
-	function validateForm() {
-		var projectName = $("#name").val();
-		if (projectName.length <= 0) {
-			showValidateMsg("项目名称不能为空!");
-			unLockScreen();
-			return false;
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>修改系统类型信息</title>
+		<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+		<link rel="stylesheet" href="<@sp.contextPath/>/static/boss/ztree/css/demo.css" type="text/css">
+		<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js" ></script>
+	</head>
+	<script type="text/javascript">
+		/**
+		 *	锁屏
+		 */
+		function lockScreen() {
+			$("#popupDiv").show();
 		}
-
-		var address = $("#address").val();
-		if (address.length <= 0) {
-			showValidateMsg("项目地址不能为空!");
-			unLockScreen();
-			return false;
+	
+		/**
+		 *	解锁
+		 */
+		function unLockScreen() {
+			$("#popupDiv").hide();
 		}
-
-		var longitude = $("#longitude").val();
-		if (longitude) {
-			if (isNaN(longitude)) {
-				showValidateMsg("经度必须为数字!");
+	
+		/**
+		 *	显示验证信息
+		 */
+		function showValidateMsg(content) {
+			$("#showMsgDiv").show();
+			$("#showMsg").html(content);
+		}
+	
+		/**
+		 *	表单校验
+		 */
+		function validateForm() {
+			var projectName = $("#name").val();
+			if (!projectName) {
+				showValidateMsg("名称不能为空!");
 				unLockScreen();
 				return false;
 			}
+	
+			return true;
 		}
-
-		var latitude = $("#latitude").val();
-		if (latitude) {
-			if (isNaN(latitude)) {
-				showValidateMsg("纬度必须为数字!");
-				unLockScreen();
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 *	表单提交
-	 */
-	$(function() {
-		$("#updatePost").bind("click", function() {
-			$.ajax({
-				type : 'post',
-				url : '<@sp.contextPath/>/projectmng.htm?method=update',
-				dataType : 'json',
-				data : $('#postForm').serialize(),
-				beforeSend : function() {
-					// 隐藏错误提示DIV
-					$("#showMsgDiv").hide();
-					// 锁屏
-					lockScreen();
-					// 表单校验
-					if (!validateForm()) {
+	
+		/**
+		 *	表单提交
+		 */
+		$(function() {
+			$("#updatePost").bind("click", function() {
+				$.ajax({
+					type : 'post',
+					url : '<@sp.contextPath/>/systypemng.htm?method=update',
+					dataType : 'json',
+					data : $('#postForm').serialize(),
+					beforeSend : function() {
+						// 隐藏错误提示DIV
+						$("#showMsgDiv").hide();
+						// 锁屏
+						lockScreen();
+						// 表单校验
+						if (!validateForm()) {
+							unLockScreen();
+							return false;
+						}
+					},//发送数据之前
+					complete : function() {
+						// 解锁
 						unLockScreen();
-						return false;
+					},//接收数据完毕
+					success : function(xmlq) {
+						unLockScreen();
+						var returnCode = xmlq.returnCode;
+						var description = xmlq.description;
+						if (returnCode == "0000") {
+							alert("修改成功");
+							closeWin();
+						} else {
+							alert(description);
+						}
+					},
+					error : function(xmlq, errq) {
+						alert("系统错误");
 					}
-				},//发送数据之前
-				complete : function() {
-					// 解锁
-					unLockScreen();
-				},//接收数据完毕
-				success : function(xmlq) {
-					unLockScreen();
-					var returnCode = xmlq.returnCode;
-					var description = xmlq.description;
-					if (returnCode == "0000") {
-						alert("修改成功");
-						closeWin();
-					} else {
-						alert(description);
-					}
-				},
-				error : function(xmlq, errq) {
-					alert("系统错误");
-				}
+				});
 			});
 		});
-	});
-
-	function closeWin() {
-		if (window.opener) {
-			window.opener.initData(0);
+	
+		function closeWin() {
+			if (window.opener) {
+				window.opener.initData(0);
+			}
+			window.close();
 		}
-		window.close();
-	}
-
-	//返回跳转
-	$(function() {
-		$("#backDefaultPage").bind("click", function() {
-			closeWin();
+	
+		//返回跳转
+		$(function() {
+			$("#backDefaultPage").bind("click", function() {
+				closeWin();
+			});
 		});
-	});
-</script>
+	</script>
 <body>
 	<form method="post" id="postForm" class="form">
 		<!--mod_box -->
 		<div class="mod_box">
-			<h3 class="head">修改项目信息</h3>
+			<h3 class="head">修改系统类型信息</h3>
 			<input type="hidden" class="inp_normal w200" id="id" name="id"
 				value="${entity.id?default('')}" />
 			<div class="body">
@@ -167,37 +115,12 @@
 				<table class="table txtL">
 					<tbody>
 						<tr class="trForContent1">
-							<td class="txtR" width="20%">项目名称<font color="red">*</font>:
+							<td class="txtR" width="20%">名称<font color="red">*</font>:
 							</td>
 							<td><input type="text" class="inp_normal w200" id="name"
 								name="name" value='${entity.name?default(' ')}' maxlength="50" />
 							</td>
-						</tr>
-						<tr class="trForContent1">
-							<td class="txtR" width="20%">项目地址<font color="red">*</font>:
-							</td>
-							<td><input type="text" class="inp_normal w200" id="address"
-								name="address" value='${entity.address?default('
-								')}' maxlength="100" /></td>
-						</tr>
-						<tr class="trForContent1">
-							<td class="txtR" width="20%">经度:</td>
-							<td><input type="text" class="inp_normal w200"
-								id="longitude" name="longitude"
-								value='${entity.longitude?default(' ')}' maxlength="3" /></td>
-						</tr>
-						<tr class="trForContent1">
-							<td class="txtR" width="20%">纬度:</td>
-							<td><input type="text" class="inp_normal w200" id="latitude"
-								name="latitude" value='${entity.latitude?default('
-								')}'  maxlength="3" /></td>
-						</tr>
-						<tr class="trForContent1">
-							<td class="txtR" width="20%">图片:</td>
-							<td><input type="text" class="inp_normal w200" id="picture"
-								name="picture" value='${entity.picture?default('
-								')}' maxlength="60" /></td>
-						</tr>
+						</tr>						
 					</tbody>
 				</table>
 				<div class="txtC mt10">

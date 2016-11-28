@@ -99,6 +99,9 @@
         #archiveUid#, #archiveUname#, #archiveTime#, #lRecordNo#, #remark#, #resvFld1#, 
         #resvFld2#)
       ]]>
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+        SELECT LAST_INSERT_ID()
+      </selectKey>
     </insert>
     <insert id="info_sys_type.insertSelective" parameterClass="com.shecc.eoms.core.model.SystemType" >
       insert into info_sys_type
@@ -223,6 +226,9 @@
         </isNotNull>
         )
       </dynamic>
+      <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+        SELECT LAST_INSERT_ID()
+      </selectKey>
     </insert>
     <select id="info_sys_type.countByExample" parameterClass="com.shecc.eoms.core.model.SystemTypeCriteria" resultClass="java.lang.Integer" >
       select count(*) from info_sys_type
