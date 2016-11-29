@@ -2,12 +2,11 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title></title>
+<title>查看设备信息</title>
 <link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/jquery/css/pagination.css"/>
 <link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css"/>
 <script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.js"></script>
 <script src="<@sp.contextPath/>/static/jquery/plugins/jquery.pagination.js" type="text/javascript"></script>
-<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">  
      .popup  
      {  
@@ -91,11 +90,16 @@ function initData(pageindx){
   $.ajax({
        type: "POST",//用POST方式传输
        dataType:"json",//数据格式:JSON
-       url:'<@sp.contextPath/>/projectmng.htm?method=queryForPage',//目标地址
+       url:'<@sp.contextPath/>/devicemng.htm?method=queryForPage',//目标地址
        async:false,//作用是防止在ajax成功调用之前就调用$("#Pagination").pagination,这个时候数据个数还没有初始化
        data:"targetPage=" + (pageindx+1) 
        		+ "&pageSize=" + pageSize
-       		+ "&name=" + $("#name").val(), 
+       		+ "&name=" + $("#name").val()
+       		+ "&brandId=" + $("#brandId").val()
+			+ "&modelId=" + $("#modelId").val()
+			+ "&systemId=" + $("#systemId").val()
+			+ "&sysTypeId=" + $("#sysTypeId").val()
+			+ "&locationId=" + $("#locationId").val(), 
        beforeSend:function(){
 	    	// 表单校验	
 	       	if(!validateForm()){
@@ -124,31 +128,23 @@ function initData(pageindx){
                     		(data.name == null ? "" : data.name) + 
                     		"</td>" +
                     		"<td align='center'>" + 
-                    		(data.address == null ? "" : data.address) + 
+                    		(data.brandName == null ? "" : data.brandName) + 
                     		"</td>" +
                     		"<td align='center'>" + 
-                    		(data.longitude == null ? "" : data.longitude) + 
+                    		(data.modelName == null ? "" : data.modelName) + 
                     		"</td>" +
-                    		"<td align='center'>" + 
-                    		(data.latitude == null ? "" : data.latitude) + 
+							"<td align='center'>" + 
+                    		(data.systemName == null ? "" : data.systemName) + 
                     		"</td>" +
-                    		"<td align='center'>" + 
-                    		"<a href=\"javascript:viewPic('" + data.picture + "')\">查看</a>"+
+							"<td align='center'>" + 
+                    		(data.sysTypeName == null ? "" : data.sysTypeName) + 
                     		"</td>" +
-                    		"<td align='center'>" + 
-                    		(data.inputUname == null ? "" : data.inputUname) + 
-                    		"</td>" +
-                    		"<td align='center'>" + 
-                    		(data.inputTime == null ? "" : (data.inputTime).substring(0,10)) + 
-                    		"</td>" +     		
-                    		"<td align='center'>" + 
-                    		(data.lastModifyUname == null ? "" : data.lastModifyUname) + 
-                    		"</td>" +
-                    		"<td align='center'>" + 
-                    		(data.lastModifyTime == null ? "" : (data.lastModifyTime).substring(0,10)) + 
+							"<td align='center'>" + 
+                    		(data.locationFname == null ? "" : data.locationFname) + 
                     		"</td>" +
                     		"<td align='center'>" +
-                    		"<a href=\"javascript:edit('" + data.id + "')\">修改</a>&nbsp;"+
+							"<a href=\"javascript:viewDetail('" + data.id + "')\">查看详情</a>&nbsp;"+
+                    		"<a href=\"javascript:edit('" + data.id + "')\">修改</a>&nbsp;"+							
                     		"</td>" +
                     		"</tr>";
                  tbody+=trs; 
@@ -175,7 +171,7 @@ function initData(pageindx){
  * 新增
  */
 function add() {
-	var url = "<@sp.contextPath/>/projectmng.htm?method=addView";
+	var url = "<@sp.contextPath/>/devicemng.htm?method=addView";
 	window.open(url, "新建", "dialogWidth:1000px;dialogHeight:auto;status:no;help:no;resizable:yes;");
 }
 
@@ -183,21 +179,81 @@ function add() {
  * 修改
  */
 function edit(id){
-	var url = "<@sp.contextPath/>/projectmng.htm?method=updateView&id=" + id;
+	var url = "<@sp.contextPath/>/devicemng.htm?method=updateView&id=" + id;
 	window.open(url, "编辑", "dialogWidth:1000px;dialogHeight:auto;status:no;help:no;resizable:yes;");
 }
+
+/**
+ * 查看详情
+ */
+function viewDetail(id){
+	var url = "<@sp.contextPath/>/devicemng.htm?method=viewDetail&id=" + id;
+	window.open(url, "查看详情", "dialogWidth:1000px;dialogHeight:auto;status:no;help:no;resizable:yes;");
+}
+
 
 </script>
 </head>
 <body>
 	<!--mod_box -->
 	<div class="mod_box">
-		<div class="head">项目信息查询</div>
+		<div class="head">设备信息查询</div>
 		<div class="body">
 				<ul class="mod_list mod_list_multi">
-					<li><label class="mod_side">项目名称：</label> 
-					<input type="text" class="inp_normal w200" name="name" id="name"/>
+					<li>
+						<label class="mod_side">设备名称：</label> 
+						<input type="text" class="inp_normal w200" name="name" id="name"/>
 					</li>
+					<li><label class="mod_side">所属品牌：</label> 
+						<SELECT NAME="brandId" id="brandId" class="brandId">
+							<option value="">请选择</option>
+							<#if brandList??>
+								<#list brandList as item>
+									 <option value="${(item.id)!}">${(item.name)!}</option>
+								</#list>
+							</#if>
+						</SELECT>
+					</li>
+					<li><label class="mod_side">所属型号：</label> 
+						<SELECT NAME="modelId" id="modelId" class="modelId">
+							<option value="">请选择</option>
+							<#if modelList??>
+								<#list modelList as item>
+									 <option value="${(item.id)!}">${(item.name)!}</option>
+								</#list>
+							</#if>
+						</SELECT>
+					</li>
+					<li><label class="mod_side">所属系统：</label> 
+						<SELECT NAME="systemId" id="systemId" class="systemId">
+							<option value="">请选择</option>
+							<#if systemList??>
+								<#list systemList as item>
+									 <option value="${(item.id)!}">${(item.name)!}</option>
+								</#list>
+							</#if>
+						</SELECT>
+					</li>
+					<li><label class="mod_side">所属系统类型：</label> 
+						<SELECT NAME="sysTypeId" id="sysTypeId" class="sysTypeId">
+							<option value="">请选择</option>
+							<#if sysTypeList??>
+								<#list sysTypeList as item>
+									 <option value="${(item.id)!}">${(item.name)!}</option>
+								</#list>
+							</#if>
+						</SELECT>
+					</li>
+					<li><label class="mod_side">所在位置：</label> 
+						<SELECT NAME="locationId" id="locationId" class="locationId">
+							<option value="">请选择</option>
+							<#if locationList??>
+								<#list locationList as item>
+									 <option value="${(item.id)!}">${(item.fName)!}</option>
+								</#list>
+							</#if>
+						</SELECT>
+					</li>					
 					<li class="mod_list_btn"><input class="btn btnA" type="button"
 						value="查 询"  onclick="initData(0)"/></li>
 				</ul>
@@ -210,22 +266,19 @@ function edit(id){
 		<div class="body">
 			<p class="mb10">
 			<span class="f14b">
-			<input class="btn btnA" type="button" value="新增项目" onclick="add()"/>&nbsp;
+			<input class="btn btnA" type="button" value="新增设备" onclick="add()"/>&nbsp;
 			</span>
 			</p>
 			<table class="table txtC" id="dataTable">
 				<thead>
 					<tr>
 						<th width="15px"></th>
-						<th>项目名称</th>
-						<th>项目地址</th>
-						<th>经度</th>
-						<th>纬度</th>
-						<th>图片</th>
-						<th>录入人</th>
-						<th>录入时间</th>
-						<th>最后修改人</th>
-						<th>最后修改时间</th>
+						<th>名称</th>
+						<th>所属品牌</th>
+						<th>所属型号</th>
+						<th>所属系统</th>
+						<th>所属系统类型</th>
+						<th>所在位置</th>
 						<th>操作</th>
 					</tr>
 				</thead>

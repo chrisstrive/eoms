@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>查看设备详情</title>
+<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css"/>
+<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery.js"></script>
+<style type="text/css">  
+     .popup  
+     {  
+         border:1px solid red;  
+         position:absolute;  
+         top:0px;  
+         left:0px;  
+         width:100%;  
+         height:100%;  
+         background-color:#000;  
+         filter:alpha(opacity=45);  
+         opacity:0.45;  
+         display:none;  
+         z-index:200;  
+     }  
+     .fff  
+     {  
+         border:1px solid blue;  
+         position:relative;  
+         background-color:#000;  
+     }  
+     .searchBtn {
+		 color: #FFFFFF;
+		 background-image: url("<@sp.contextPath/>/static/boss/img/search.jpg");
+		 line-height: 28px;
+		 height: 28px;
+		 width: 30px;
+		 margin: 0px 0 0 0px; /*margin-top 和 margin-left 一句就可以实现了 */
+		 border: none; /* border-top\left\right\bottom 也可以缩到一句 */
+		 cursor:pointer
+	}
+ </style>
+</head>
+<body>
+	<!--mod_box -->
+	<div class="mod_box">
+		<div class="head">设备详情</div>
+		<div class="body">
+				<ul class="mod_list mod_list_multi">
+					<li>设备名称：${(entity.name)!}</li>
+					<li>所属品牌：${(entity.brandName)!}</li>
+					<li>所属型号：${(entity.modelName)!}</li>
+					<li>所属系统：${(entity.systemName)!}</li>
+					<li>所属系统类型：${(entity.sysTypeName)!}</li>
+					<li>所在位置：${(entity.locationFname)!}</li>
+					<li>启用时间：${(entity.startTime?date)!}</li>
+					<li>配置信息：${(entity.config)!}</li>
+					<li>文档：${(entity.document)!}</li>
+					<li>图片：${(entity.picture)!}</li>
+					<li>供应商：${(entity.supplier)!}</li>
+					<li>维修时间：${(entity.repairTime?date)!}</li>
+					<li>巡检时间：${(entity.routingTime?date)!}</li>
+					<li>维护时间：${(entity.maintainTime?date)!}</li>
+					<li>录入人：${(entity.inputUname)!}</li>
+					<li>录入时间：${(entity.inputTime?date)!}</li>
+					<li>最后修改人：${(entity.lastModifyUname)!}</li>
+					<li>最后修改时间：${(entity.lastModifyTime?date)!}</li>
+					<li class="mod_list_btn"><input class="btn btnA" type="button"
+						value="返  回"  onclick="window.close();"/></li>
+				</ul>
+		</div>
+	</div>
+</body>
+</html>

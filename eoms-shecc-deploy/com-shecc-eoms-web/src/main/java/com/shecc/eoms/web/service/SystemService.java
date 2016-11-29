@@ -9,6 +9,8 @@
 
 package com.shecc.eoms.web.service;
 
+import java.util.List;
+
 import com.shecc.eoms.core.common.Page;
 import com.shecc.eoms.core.model.System;
 import com.shecc.eoms.core.model.SystemCriteria;
@@ -67,5 +69,16 @@ public interface SystemService {
 	 * @since JDK 1.6
 	 */
 	System findById(Integer id);
+	
+	/**
+	 * 
+	 * queryAll:根据条件查询所有信息. <br/>
+	 *
+	 * @author chris
+	 * @param criteria	查询条件
+	 * @return
+	 * @since JDK 1.6
+	 */
+	List<System> queryAll(SystemCriteria criteria);
 }
 

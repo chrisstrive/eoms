@@ -88,4 +88,9 @@ public class SystemServiceImpl implements SystemService {
 				.andArchiveFlagEqualTo(ArchiveFlagEnum.NO_ARCHIVE.getCode());
 		return entityDao.findObjectByCriteria(criteria);
 	}
+
+	@Override
+	public List<System> queryAll(SystemCriteria criteria) {
+		return entityDao.findByCriteria(criteria);
+	}
 }

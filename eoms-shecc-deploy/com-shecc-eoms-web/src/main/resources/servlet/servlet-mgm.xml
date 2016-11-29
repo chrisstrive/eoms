@@ -14,6 +14,7 @@
 					<prop key="/chkitemmng.htm">checkItemController</prop>
 					<prop key="/modelmng.htm">modelController</prop>
 					<prop key="/systypemng.htm">systemTypeController</prop>
+					<prop key="/devicemng.htm">deviceController</prop>
 				</props>
 			</property>
 		</bean>
@@ -62,9 +63,15 @@
 
 		<bean id="deviceController" class="com.shecc.eoms.web.controller.DeviceController" parent="parentController">
 			<property name="entityService"><ref bean="deviceService" /></property>
+			<property name="brandService"><ref bean="brandService" /></property>
+			<property name="modelService"><ref bean="modelService" /></property>
+			<property name="systemService"><ref bean="systemService" /></property>
+			<property name="systemTypeService"><ref bean="systemTypeService" /></property>
+			<property name="locationService"><ref bean="locationService" /></property>
 			<property name="listPage"><value>/boss/device/list</value></property>
 			<property name="addPage"><value>/boss/device/add</value></property>
 			<property name="updatePage"><value>/boss/device/update</value></property>
+			<property name="viewDetailPage"><value>/boss/device/detail</value></property>
 		</bean>
 
 		<bean id="brandController" class="com.shecc.eoms.web.controller.BrandController" parent="parentController">

@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 						http://www.springframework.org/schema/context
 							http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<context:component-scan base-package="com.shecc.eoms.web.controller"></context:component-scan>
 
 	<bean id="ser-UserService" class="com.shecc.eoms.web.service.impl.UserServiceImpl">
 		<property name="userDao" ref="dao-UserDAO"></property>

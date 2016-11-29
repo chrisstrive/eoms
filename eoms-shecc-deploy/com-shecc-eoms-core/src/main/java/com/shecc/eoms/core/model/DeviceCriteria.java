@@ -908,6 +908,76 @@ public class DeviceCriteria {
             return (Criteria) this;
         }
 
+        public Criteria andLocationFnameIsNull() {
+            addCriterion("LOCATION_FNAME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameIsNotNull() {
+            addCriterion("LOCATION_FNAME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameEqualTo(String value) {
+            addCriterion("LOCATION_FNAME =", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameNotEqualTo(String value) {
+            addCriterion("LOCATION_FNAME <>", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameGreaterThan(String value) {
+            addCriterion("LOCATION_FNAME >", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameGreaterThanOrEqualTo(String value) {
+            addCriterion("LOCATION_FNAME >=", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameLessThan(String value) {
+            addCriterion("LOCATION_FNAME <", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameLessThanOrEqualTo(String value) {
+            addCriterion("LOCATION_FNAME <=", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameLike(String value) {
+            addCriterion("LOCATION_FNAME like", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameNotLike(String value) {
+            addCriterion("LOCATION_FNAME not like", value, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameIn(List<String> values) {
+            addCriterion("LOCATION_FNAME in", values, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameNotIn(List<String> values) {
+            addCriterion("LOCATION_FNAME not in", values, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameBetween(String value1, String value2) {
+            addCriterion("LOCATION_FNAME between", value1, value2, "locationFname");
+            return (Criteria) this;
+        }
+
+        public Criteria andLocationFnameNotBetween(String value1, String value2) {
+            addCriterion("LOCATION_FNAME not between", value1, value2, "locationFname");
+            return (Criteria) this;
+        }
+
         public Criteria andStartTimeIsNull() {
             addCriterion("START_TIME is null");
             return (Criteria) this;

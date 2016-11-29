@@ -25,22 +25,22 @@ public class Device implements Serializable {
     private String brandName;
 
     /**
-     * 所属项目编号
+     * 所属型号编号
      */
     private Integer modelId;
 
     /**
-     * 所属项目名称
+     * 所属型号名称
      */
     private String modelName;
 
     /**
-     * 所属项目编号
+     * 所属系统编号
      */
     private Integer systemId;
 
     /**
-     * 所属项目名称
+     * 所属系统名称
      */
     private String systemName;
 
@@ -58,6 +58,11 @@ public class Device implements Serializable {
      * 位置编号
      */
     private Integer locationId;
+
+    /**
+     * 位置全名
+     */
+    private String locationFname;
 
     /**
      * 启用时间
@@ -183,7 +188,13 @@ public class Device implements Serializable {
      * 保留域2
      */
     private String resvFld2;
-
+    
+    private String systemInfo;
+    
+    private String systemTypeInfo;
+    
+    private String locationInfo;
+    
     private static final long serialVersionUID = 1L;
 
     /**
@@ -338,6 +349,20 @@ public class Device implements Serializable {
      */
     public void setLocationId(Integer locationId) {
         this.locationId = locationId;
+    }
+
+    /**
+     * <b>获取</b> 位置全名
+     */
+    public String getLocationFname() {
+        return locationFname;
+    }
+
+    /**
+     * <b>设置</b> 位置全名
+     */
+    public void setLocationFname(String locationFname) {
+        this.locationFname = locationFname;
     }
 
     /**
@@ -689,4 +714,28 @@ public class Device implements Serializable {
     public void setResvFld2(String resvFld2) {
         this.resvFld2 = resvFld2;
     }
+
+	public void setSystemInfo(String systemInfo) {
+		this.systemInfo = systemInfo;
+	}
+
+	public void setSystemTypeInfo(String systemTypeInfo) {
+		this.systemTypeInfo = systemTypeInfo;
+	}
+
+	public void setLocationInfo(String locationInfo) {
+		this.locationInfo = locationInfo;
+	}
+
+	public String getSystemInfo() {
+		return systemInfo;
+	}
+
+	public String getSystemTypeInfo() {
+		return systemTypeInfo;
+	}
+
+	public String getLocationInfo() {
+		return locationInfo;
+	}
 }
