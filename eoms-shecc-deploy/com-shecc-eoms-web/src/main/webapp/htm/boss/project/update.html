@@ -2,37 +2,13 @@
 <html>
 
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title></title>
-<script type="text/javascript"
-	src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
-<script src="<@sp.contextPath/>/static/jquery/plugins/jquery.form.js"
-	type="text/javascript"></script>
-<link rel="stylesheet" type="text/css"
-	href="<@sp.contextPath/>/static/boss/css/poss.css">
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/My97DatePicker/WdatePicker.js"></script>
-	<script language="javascript" type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/fckeditor/fckeditor.js"></script>
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/uploadify/jquery.uploadify-3.1.min.js"></script>
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/uploadify/uploadfile.js"></script>
-	<script src="<@sp.contextPath/>/static/boss/js/validate.js"
-		type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css"
-		href="<@sp.contextPath/>/static/boss/js/uploadify/uploadify.css" />
-	<script type="text/javascript"
-		src="<@sp.contextPath/>/static/boss/js/validate.js"></script>
-
-	<link rel="stylesheet"
-		href="<@sp.contextPath/>/static/boss/ztree/css/demo.css"
-		type="text/css">
-		<link rel="stylesheet"
-			href="<@sp.contextPath/>/static/boss/ztree/css/zTreeStyle/zTreeStyle.css"
-			type="text/css">
-			<script type="text/javascript"
-				src="<@sp.contextPath/>/static/boss/ztree/js/jquery-1.4.4.min.js"></script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>修改项目</title>
+	<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/boss/css/poss.css">
+	<link rel="stylesheet" type="text/css" href="<@sp.contextPath/>/static/common/css/themes/default/easyui.css">
+	<script type="text/javascript" src="<@sp.contextPath/>/static/jquery/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="<@sp.contextPath/>/static/common/js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<@sp.contextPath/>/static/boss/js/dialog.js"></script>
 </head>
 <script type="text/javascript">
 	/**
@@ -152,6 +128,24 @@
 			closeWin();
 		});
 	});
+	
+	var uploadWin;
+	function openWindow() {
+		uploadWin = $.pay.window(
+				'<@sp.contextPath/>/fileUpload.htm?method=uploadView&fileType=I01',
+				{
+					title : '上传项目图片',
+					iframe : true,
+					width : 400,
+					height : 200,
+					success : function() {
+					}
+				});
+	}
+
+	function closeFileWin() {
+		$(uploadWin).window("close");
+	}
 </script>
 <body>
 	<form method="post" id="postForm" class="form">
@@ -194,9 +188,12 @@
 						</tr>
 						<tr class="trForContent1">
 							<td class="txtR" width="20%">图片:</td>
-							<td><input type="text" class="inp_normal w200" id="picture"
-								name="picture" value='${entity.picture?default('
-								')}' maxlength="60" /></td>
+							<td>
+								<input type="text" id="fileName" class="minhalf" value="${(entity.picture)!}" name="fileName" readonly="true"/>  
+								<input id="btnFileSub" type="button" class="btn btn-blue" value="点击上传" onclick="openWindow();"/>
+								<span id="fileNameTip" style="width:250px"></span>
+								<input type="hidden" name="picture" id="picture" value="${(entity.picture)!}" />
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -130,6 +130,12 @@ select.w300 { width:308px }
 
 
 /*表单*/
+input.minhalf,textarea.minhalf {
+	width:30%;
+}
+select.minhalf{
+	width:30.8%;
+}
 .list_box { margin:0 auto; border:1px solid #bed0e2; background:#ffffff }
 .list_box .form { padding:10px 0px; line-height:22px; position:relative; }
 .list_box .list_tr { min-height:26px; _height:26px; border-bottom:1px solid text-align:left; clear:both;}

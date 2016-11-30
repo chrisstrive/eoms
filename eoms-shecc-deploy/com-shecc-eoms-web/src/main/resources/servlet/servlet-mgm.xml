@@ -7,6 +7,7 @@
 		<bean	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 			<property name="mappings">
 				<props>
+					<prop key="/fileUpload.htm">fileUploadController</prop>
 					<prop key="/projectmng.htm">projectController</prop>
 					<prop key="/locationmng.htm">locationController</prop>
 					<prop key="/systemmng.htm">systemController</prop>
@@ -22,6 +23,12 @@
 		<bean id="parentController" abstract="true">
 			<property name="methodNameResolver"><ref bean="paramResolver" /></property>
 		</bean>
+		
+		<!-- 文件上传 start -->
+	<bean id="fileUploadController" class="com.shecc.eoms.web.controller.FileController" parent="parentController">
+		<property name="uploadView"><value>/boss/common/fileUpload</value></property>
+		<property name="viewPicPage"><value>/boss/common/viewPic</value></property>
+	</bean>
 
 		<bean id="projectController" class="com.shecc.eoms.web.controller.ProjectController" parent="parentController">
 			<property name="projectService"><ref bean="projectService" /></property>
